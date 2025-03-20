@@ -1,7 +1,11 @@
-const number = 12;
-let name = "my number";
-let isEven = false;
+const number = 13;
+console.log("Số:", number);
 
-if (12 % 2 === 0) {
-    console.log(isEven = true);
-}
+let name = "my number";
+console.log("Tên:", name);
+
+let isEven = false;
+console.log("isEven:", isEven);
+
+if (number % 2 === 0) { isEven = true };
+console.log("number là số chẵn:", isEven);

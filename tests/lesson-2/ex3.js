@@ -1,13 +1,13 @@
-const number = 22;
+const number = -12;
 
-if (22 > 0) {
+if (number > 0) {
     console.log("Giá trị bạn nhập là số dương");
-};
+}
 
-if (22 < 0) {
+else if (number < 0) {
     console.log("Giá trị bạn nhập là số âm");
-};
+}
 
-if (22 === 0) {
+else if (number === 0) {
     console.log("Giá trị bạn nhập là số 0");
 }
