@@ -1,0 +1,55 @@
+1. Git 
+Command: 
+- git commit --amend: Thay đổi commit msg 
+    - i: Vào chế độ insert 
+    - esc: Thoát insert 
+    - :wq: write & quit 
+- git commit --amend -m "msg": Thay đổi commit msg 
+- git restore --staged <file>: Đưa từ vùng staging về working directory 
+- git reset HEAD~<number>: Đưa từ vùng repository về working directory (uncommit)
+- git branch <branch_name>: Tạo branch 
+- git checkout <branch_name>: Tạo branch 
+- git checkout -b <branch_name>: Tạo branch 
+Other: 
+- .gitignore file: Bỏ qua các file không cần git theo dõi
+
+2. Javascript - Advance concepts 
+Conventions: snake_case, kebab-case, camelCase, PascalCase
+
+2.1. console.log: 
+- Format: 
+    - console.log('msg')
+    - console.log("msg")
+    - console.log(`${variable_name}`)
+    - console.log(`msg ${variable_name}`)
+    - console.log("msg" + variable_name + "")
+
+2.2. Object: 
+- Lưu trữ tập hợp các giá trị vào cùng một biến hoặc hằng số
+- Khai báo: 
+    let/const <object_name> = { 
+        <property1>: {
+            <property2>: "<value2>"
+        }
+    }
+- Truy xuất: 
+    console.log(<object_name>.<property1>.<property2>);
+    console.log(<object_name>["property2"]);
+
+2.3. Logical operator
+- &&: Cả 2 vế của mệnh đề đều đúng 
+- ||: Một trong 2 vế đúng 
+- !: Đảo ngược lại giá trị của mệnh đề 
+
+2.4. Array 
+- Lưu trữ một tập hợp các phần tử có cùng kiểu dữ liệu
+- Khai báo:
+    let/const <array_name> = ["value1", "value2"];
+
+2.5. Function 
+- Đoạn code được đặt tên và có thể tái sử dụng, thực hiện 1 nhiệm vụ hoặc 1 tính toán cụ thể
+- Khai báo: 
+    function <functionName>() {
+        //code
+    }
+- Parameter: 
