@@ -45,6 +45,9 @@ Conventions: snake_case, kebab-case, camelCase, PascalCase
 - Lưu trữ một tập hợp các phần tử có cùng kiểu dữ liệu
 - Khai báo:
     let/const <array_name> = ["value1", "value2"];
+- Truy xuất: 
+    - Độ dài: length
+    - Lấy phần tử theo index: [0], [1], [2]
 
 2.5. Function 
 - Đoạn code được đặt tên và có thể tái sử dụng, thực hiện 1 nhiệm vụ hoặc 1 tính toán cụ thể
@@ -52,4 +55,42 @@ Conventions: snake_case, kebab-case, camelCase, PascalCase
     function <functionName>() {
         //code
     }
-- Parameter: 
+- Parameter: Truyền parameter vào hàm để tối ưu code, tránh duplicate 
+- Return value: Trả về giá trị theo điều kiện 
+
+2.6. Scope of variable
+- Scope of variable: 
+    - var: global 
+    - let: {}
+- Hoisting: Di chuyển các biến, function lên đầu scope trước khi code được run
+    - var: hoisting nhưng không khởi tạo 
+    - let, const: hoisting nhưng không accept được
+
+2.7. Advanced condition
+- if... else
+- if... else if
+- switch... case: Khi cần kiểm tra nhiều giá trị khác nhau của một biến
+    switch (bieu thuc) {
+        case gia_tri_1: 
+            // code
+            break;
+        case_gia_tri_2:
+            // code 
+            break; 
+        default:
+            // code;
+    }
+
+2.8. == & !=
+- So sánh "lỏng lẻo": Chỉ so sánh value và convert dữ liệu về kiểu lớn hơn 
+- So sánh tuyệt đối(===, !==): So sánh cả type + value 
+
+2.9. Advanced loop
+- for... in: Dùng cho object, array
+- forEach: Dùng cho array
+    array.forEach((value, index) {
+        // code
+    })
+- for... of: Dùng cho array
+- break
+- continue
