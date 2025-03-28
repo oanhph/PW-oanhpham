@@ -29,7 +29,12 @@ function printMonthName(month) {
         case 12:
             return "December";
     }
-    return "Invalid month";
+    if (month >= 1 && month <=12) {
+        return printMonthName;
+    }
+    else {
+        return "Invalid month";
+    }
 }
 console.log(printMonthName(22));
 console.log(printMonthName(5));
