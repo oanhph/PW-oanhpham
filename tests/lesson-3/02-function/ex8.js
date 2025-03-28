@@ -3,7 +3,7 @@
 */
 
 function weather(temperature) {
-    console.log(`Nhiet do: ${temperature} `);
+    console.log(`Nhiet do: ${temperature}`);
     if (temperature >= 30) {
         console.log("Nong");
     }
