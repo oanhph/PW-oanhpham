@@ -28,6 +28,7 @@ for (let i = 1; i <= 99; i += 2) {
 }
 console.log(arr);
 
+
 /* 4. Tính tổng doanh thu của 12 tháng trong năm dựa trên mảng doanh thu đã cho và
 in ra tổng doanh thu. Biết cấu trúc object của mảng doanh thu như sau:
 {“month”: 2, “total”: 100}

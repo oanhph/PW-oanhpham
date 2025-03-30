@@ -11,6 +11,7 @@ let student = {
 };
 console.log(student.grades["math"]);
 
+
 /* Tạo một object product với các thuộc tính là tên các sản phẩm và giá trị là giá
 của chúng. Dùng vòng lặp for...in để in ra tên và giá của mỗi sản phẩm.
 */
@@ -25,6 +26,7 @@ for (let item in product) {
     console.log(product[item]);
 };
 
+
 /* Tạo một object bike và sau đó thêm thuộc tính color vào object đó
 */
 let bike = {
@@ -33,6 +35,7 @@ let bike = {
 };
 bike.color = "green";
 console.log(bike);
+
 
 /* Tạo một object employee với các thuộc tính: name, age và xóa thuộc tính age khỏi
 object này
@@ -43,6 +46,7 @@ let employee = {
 };
 delete employee.age;
 console.log(employee);
+
 
 /* Một trường học có các lớp học và học sinh như sau:
 ○ classA: An, Bình, Châu

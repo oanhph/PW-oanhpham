@@ -23,4 +23,3 @@ number.forEach(num => {
     }
 });
 console.log(result);
-

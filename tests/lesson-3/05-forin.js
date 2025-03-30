@@ -1,9 +1,11 @@
-// 1. In ra tên và giá trị của mỗi thuộc tính trong một đối tượng
+
 let student = {};
 student.name = "Alex";
 student.age = 10;
 student.salary = 20;
 
+
+// 1. In ra tên và giá trị của mỗi thuộc tính trong một đối tượng
 for (let property in student) {
     console.log(`${property}: ${student[property]}`);
 }
@@ -21,6 +23,7 @@ for (let value in student) {
     }
 }
 console.log(sum);
+
 
 // 3. Tạo một mảng chứa tất cả các tên thuộc tính của một đối tượng
 let arrStudent = [];

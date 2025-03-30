@@ -8,8 +8,8 @@ for (let i = arrStr.length - 1; i >= 0; i--) {
 console.log(inversion);
 
 // 2. Lọc ra tất cả các phần tử duy nhất trong một mảng
-let arrNumber = [1, 2, 3, 1, 2, 4, 5];
-let unique = [];
+// let arrNumber = [1, 2, 3, 1, 2, 4, 5];
+// let unique = [];
 
 for (let num of arrNumber) {
     if (arrNumber.indexOf(num) === arrNumber.lastIndexOf(num)) {
