@@ -10,6 +10,7 @@ Command:
 - git branch <branch_name>: Tạo branch 
 - git checkout <branch_name>: Tạo branch 
 - git checkout -b <branch_name>: Tạo branch 
+- git checkout <revision>: Trở về revision
 Other: 
 - .gitignore file: Bỏ qua các file không cần git theo dõi
 
@@ -94,3 +95,15 @@ Conventions: snake_case, kebab-case, camelCase, PascalCase
 - for... of: Dùng cho array
 - break
 - continue
+
+2.10. Additional knowledge
+- Thay giá trị của thuộc tính a trong object abc: 
+    abc.a = "data"; 
+- Thêm thuộc tính a vào object abc: 
+    abc.a = "data"; || abc["a"] = "data";
+- Xoá thuộc tính a khỏi object abc: 
+    delete abc.a;
+- Thêm phần tử vào mảng arr: 
+    arr.push(data);
+- Một string cũng là một mảng. Lặp mảng này: 
+    <stringName>.length
