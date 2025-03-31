@@ -85,45 +85,66 @@
 
 ## Playwright basic syntax
 - **test**: Đơn vị cơ bản để khai báo một test
-    ```import { test } from '@playwright/test';
+    ```
+    import { test } from '@playwright/test';
     test('<test name>', async ({page})) => {
         // code
     };
 - **step**: Đơn vị nhỏ hơn test, để khai báo từng step của test case 
-    ```await test.step('Step name', async () => {
+    ```
+    await test.step('Step name', async () => {
         // code
     });
 
 ### Basic actions
 - Navigate:
-    ```await page.goto('<link>');
+    ```
+    await page.goto('<link>');
 - Click: 
     - Single click: 
-        ```await page.locator("//button").click();
+        ```
+        await page.locator("//button").click();
     - Double click: 
-        ```await page.locator("//button").dblclick();
+        ```
+        await page.locator("//button").dblclick();
     - Click right mouse: 
-        ```page.locator("//button").click({
+        ```
+        page.locator("//button").click({
             button: 'right'
         });
     - Click chuột kèm bấm phím khác: 
-        ```page.locator("//button").click({
+        ```
+        page.locator("//button").click({
             modifies: ['Shift'],
         });
 - Input: 
     - Fill: 
-        ```page.locator("//input").fill("Playwright Viet Nam");
+        ```
+        page.locator("//input").fill("Playwright Viet Nam");
     - Gõ từng chữ cái vào ô input: 
-        ```page.locator("//input").pressSequentially("Playwright Viet Nam", {
+        ```
+        page.locator("//input").pressSequentially("Playwright Viet Nam", {
             delay: 100,
         });
 - Radio/checkbox: 
     - Lấy giá trị hiện tại đang là check hay không:
-        ```const isChecked = 
-            page.locator("//input").isChecked();
+        ```
+        const isChecked = 
+        page.locator("//input").isChecked();
     - Check/uncheck:
-        ```page.locator("//input").check();
-        ```page.locator("//input").setChecked(false);
+        ```
+        page.locator("//input").check();
+        page.locator("//input").setChecked(false);
     _(hàm setChecked chỉ dùng với radio)_
 - Select option: **selectOption()**
 - Set input file: **setInputFiles()**
+
+
+## Additional knowledge: 
+- Hover vào phần tử: **hover()**
+- Tìm ra phần tử có giá trị tương ứng: **text()**
+- Chọn các phần tử thừa khoảng trắng || có giá trị không ổn định: **contains()** 
+- Handle confirmation diaglog: Set up event dialog trước event trigger dialog. Ex: 
+    ``` 
+    page.on('dialog', async dialog => dialog.accept()); 
+    await page.click("//button[text()='Delete']");
