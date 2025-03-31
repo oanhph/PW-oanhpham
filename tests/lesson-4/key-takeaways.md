@@ -69,7 +69,7 @@
     - and và or: _Ex: /div[@class='form-group' or @id='child']_
     - innerText: Chọn element dựa trên nội dung text. _Ex: //label[text()='Email ']_
     - normalize-space(): tream đầu tream cuối space. _Ex: //label[normalize-space()='Email']_
-    - contains: Kiểm tra 1 chuỗi có chứa chuỗi con nào trong đó không (thường áp dụng khi kiểm tra giờ chạy). _Ex: //h1[contain(text(),'Registration')]_ 
+    - contains: Kiểm tra 1 chuỗi có chứa chuỗi con nào trong đó không (thường áp dụng khi kiểm tra giờ chạy). _Ex: //h1[contains(text(),'Registration')]_ 
     - starts-with: Tương tự contains nhưng required bắt đầu bởi một từ được chỉ định. _Ex: //h1[starts-with(text(),'User')]_
     - not: Sử dụng cho element không thoả mãn điều kiện trong tag. _Ex: //input[not(@id='ancestor')]_
 - Axes: Dựa vào relashionship trong cây DOM để xác định XPath: **//tagrelashionship::tagname[@att='value']**
