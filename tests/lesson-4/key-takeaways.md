@@ -148,3 +148,4 @@
     ``` 
     page.on('dialog', async dialog => dialog.accept()); 
     await page.click("//button[text()='Delete']");
+- RegExp 
