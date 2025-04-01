@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("Add 100 items", async ({ page }) => {
+test("Add 100 items and delete odd numbered items", async ({ page }) => {
     await page.goto("https://material.playwrightvn.com/");
     await expect(page).toHaveTitle(/Tài liệu học automation test/);
 
