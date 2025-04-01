@@ -56,4 +56,6 @@ test("Submit valid values in User Registration form", async ({ page }) => {
 
     await page.click("//button[text()='Register']");
 
+    await expect(page.locator("//th[text()='Username']")).toBeVisible;
+
 });
