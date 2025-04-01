@@ -14,9 +14,12 @@ test("Add 10 notes and search title", async ({ page }) => {
         await page.fill("//textarea[@id='note-content']", record.noteContent);
         await page.click("//button[@id='add-note']");
     };
+    await expect(page.locator("//div[text()='Total Notes: 10']")).toBeVisible;
 
     // Search via title
     await page.locator("//input[@id='search']").pressSequentially("Việt Nam - Indonesia ký ý định thư về khoa học công nghệ", {
         delay: 100
     });
+    await expect(page.locator("//div[text()='Total Notes: 1']")).toBeVisible;
+
 });
