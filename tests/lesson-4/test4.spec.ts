@@ -19,5 +19,4 @@ test("Add 10 notes and search title", async ({ page }) => {
     await page.locator("//input[@id='search']").pressSequentially("Việt Nam - Indonesia ký ý định thư về khoa học công nghệ", {
         delay: 100
     });
-
 });

@@ -35,7 +35,7 @@ test("Submit valid values in User Registration form", async ({ page }) => {
 
     await page.fill("//textarea[@id='bio']", "Tạo file test1.spec.ts. Truy cập trang https://material.playwrightvn.com/");
 
-    // Rate us: pending
+    // Rate us: PENDING
     // const element = await page.locator("//input[@id='rating']").boundingBox();
     // console.log(`${element?.x}, ${element?.y}`);await page.locator("//input[@id='rating']").hover();
     // await page.getByRole("button").click;
@@ -43,13 +43,12 @@ test("Submit valid values in User Registration form", async ({ page }) => {
     //     button: "right",
     //     modifiers: ["Shift"],
     //     position: {
-    //         x: 12, 
-    //         y: 20
+    //         x: , 
+    //         y: 
     //     },       
     // });
 
-
-    // Favorite color: pending
+    // Favorite color: PENDING 
 
     await page.locator("//input[@id='newsletter']").setChecked(true);
 
