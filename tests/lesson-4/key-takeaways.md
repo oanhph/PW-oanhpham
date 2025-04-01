@@ -66,7 +66,7 @@
 - Advance method: 
     - wildcard: Thay thế cho bất kì element nào trên XPath (kí hiệu: *)
     - chứa thuộc tính: Chọn các phần tử có chứa thuộc tính. _Ex: //*[@checked]_
-    - and và or: _Ex: /div[@class='form-group' or @id='child']_
+    - and và or: _Ex: //div[@class='form-group' or @id='child']_
     - innerText: Chọn element dựa trên nội dung text. _Ex: //label[text()='Email ']_
     - normalize-space(): tream đầu tream cuối space. _Ex: //label[normalize-space()='Email']_
     - contains: Kiểm tra 1 chuỗi có chứa chuỗi con nào trong đó không (thường áp dụng khi kiểm tra giờ chạy). _Ex: //h1[contains(text(),'Registration')]_ 

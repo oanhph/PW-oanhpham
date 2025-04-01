@@ -16,7 +16,7 @@ test("Submit valid values in User Registration form", async ({ page }) => {
     await page.locator("//input[@id='male']").check();
 
     let isChecked = await page.locator("//input[@id='traveling']").isChecked();
-    console.log(isChecked);
+    // console.log(isChecked);
     await page.locator("//input[@id='traveling']").setChecked(true);
 
     await page.locator("//select[@id='interests']").selectOption({
@@ -35,10 +35,12 @@ test("Submit valid values in User Registration form", async ({ page }) => {
 
     await page.fill("//textarea[@id='bio']", "Tạo file test1.spec.ts. Truy cập trang https://material.playwrightvn.com/");
 
+    // Rate us: pending
+    // Favorite color: pending
+
     await page.locator("//input[@id='newsletter']").setChecked(true);
 
-    // await page.click("//input[@id:'toggleOption']");
+    await page.click("//span[@class='slider round']");
 
-    const registerButton = page.locator("//button[contains(text(), 'Register')]");
-    await registerButton.click();
-})
+    await page.click("//button[text()='Register']");
+});
