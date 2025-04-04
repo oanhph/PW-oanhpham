@@ -48,10 +48,10 @@
     - Trong khi chạy 
     - Sau khi chạy
 - Các hooks: 
-    - beforeAll
-    - beforeEach
-    - afterEach 
-    - afterAll 
+    - beforeAll: Khởi tạo trình duyệt, kết nối database, thiết lập dữ liệu ban đầu
+    - beforeEach: Điều hướng đến trang web, đăng nhập trước mỗi test
+    - afterEach: Dọn dẹp dữ liệu test, reset state
+    - afterAll: Đóng trình duyệt, ngắt kết nối database
 
 ## Playwright assertion
 - Không dùng web-first assertion: Chờ cứng X (s)

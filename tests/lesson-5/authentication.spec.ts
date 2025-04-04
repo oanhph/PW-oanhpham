@@ -2,8 +2,8 @@ import { test, expect } from "@playwright/test";
 
 const usernameInvalid = "frank";
 const passwordInvalid = "123456";
-const usernameValid = "k11-duc";
-const passwordValid = "I#Ddnh4SQiXIC#uF7O5UQUjW";
+const usernameValid = "k11-trang";
+const passwordValid = "TCKoQJ4S3hKFyEamNgM0OwMK";
 
 test.describe("Authentication", async () => {
     test("@AUTH_001: Login fail", async ({ page }) => {
@@ -30,7 +30,10 @@ test.describe("Authentication", async () => {
 
         await test.step("Submit valid data", async () => {
             await page.click("//input[@id='wp-submit']");
-            // await expect(page.)
+            await expect(page).toHaveURL(/wp-admin/);
+            await expect(page.getByRole("heading", { name: "Dashboard" })).toBeVisible();
+            await expect(page.getByRole("heading", { name: "At a Glance" })).toBeVisible();
+            await expect(page.getByRole("heading", { name: "Activity" })).toBeVisible();
         })
     })
 });
