@@ -1,66 +1,155 @@
 import { test, expect } from "@playwright/test";
 import { execSync } from "child_process";
 
-const usernameValid = "k11-trang";
-const passwordValid = "TCKoQJ4S3hKFyEamNgM0OwMK";
-const existsName = "lesson tag";
-let validName1 = "tag Oanh Pham";
-let validName2 = "tag Oanh Pham 02";
-let validSlug2 = "tag-OanhPham-02".toLowerCase();
-0
+function convert(text) {
+    return text
+        .replace(/Đ/g, "D")
+        .replace(/đ/g, "d")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, "")
+        .trim()
+        .replace(/\s+/g, "-");
+};
+
+let usernameValid = "k11-trang";
+let passwordValid = "TCKoQJ4S3hKFyEamNgM0OwMK";
+let existsName = "lesson tag";
+let tagName1 = "tag Oanh Pham";
+let tagName2 = "tag Oanh Pham 02";
+let tagName3 = "tag Oanh Pham 03";
+let validSlug2 = "tag-OanhPham-02"; let expectedSlug2 = convert(validSlug2);
+let validSlug3 = "Đây là tag đặc biệt @100 $200"; let expectedSlug3 = convert(validSlug3);
+let categorySlug3 = "Đây là category đặc biệt @100 $200"; let expectedCategorySlug3 = convert(categorySlug3);
+let categoryName3 = "category Oanh Pham 03";
+let categoryName4 = "category Oanh Pham 04"; let expectedCategorySlug4 = convert(categoryName4);
+
+
 test.describe("Post", async () => {
     test.beforeEach(async ({ page }) => {
         await page.goto("https://pw-practice-dev.playwrightvn.com/wp-admin");
         await page.locator("//input[@id='user_login']").fill(usernameValid);
         await page.locator("//input[@id='user_pass']").fill(passwordValid);
         await page.click("//input[@id='wp-submit']");
+
         await expect(page).toHaveURL(/wp-admin/);
 
         await page.hover("//div[contains(text(),'Posts')]");
         await page.click("//a[contains(text(),'Tags')]");
+
         await expect(page.locator("//h1[text()='Tags']")).toBeVisible();
     });
+
 
     test("@POST_TAG_001: Tag - add tag failed", async ({ page }) => {
         await test.step("Click button [Add New Tag]", async () => {
             await page.click("//input[@id='submit']");
+
             await expect(page.locator("//p[text()='A name is required for this term.']")).toBeVisible();
         });
 
         await test.step("Submit the already exists name", async () => {
             await page.locator("//input[@id='tag-name']").fill(existsName);
             await page.click("//input[@id='submit']");
+
             await expect(page.locator("//p[text()='A term with the name provided already exists in this taxonomy.']")).toBeVisible();
         })
     });
 
+
     test("@POST_TAG_002: Tag - add tag success", async ({ page }) => {
         await test.step("Submit valid name", async () => {
-            await page.locator("//input[@id='tag-name']").fill(validName1);
+            await page.locator("//input[@id='tag-name']").fill(tagName1);
             await page.click("//input[@id='submit']");
+
             await expect(page.locator("//p[text()='Tag added.']")).toBeVisible();
-            await expect(page.locator(`//a[text()='${validName1}']`)).toBeVisible();
+            await expect(page.locator(`//a[text()='${tagName1}']`)).toBeVisible();
         });
 
         await test.step("Submit valid name & slug", async () => {
-            await page.locator("//input[@id='tag-name']").fill(validName2);
+            await page.locator("//input[@id='tag-name']").fill(tagName2);
             await page.locator("//input[@id='tag-slug']").fill(validSlug2);
             await page.click("//input[@id='submit']");
+
             await expect(page.locator("//p[text()='Tag added.']")).toBeVisible();
-            await expect(page.locator(`//a[text()='${validName2}']`)).toBeVisible();
-            await expect(page.locator(`//td[text()='${validSlug2}']`)).toBeVisible();
+            await expect(page.locator(`//a[text()='${tagName2}']`)).toBeVisible();
+            await expect(page.locator(`//td[text()='${expectedSlug2}']`)).toBeVisible();
         });
 
         await test.step("Remove tag", async () => {
-            await page.hover(`//a[text()='${validName1}']`);
+            await page.hover(`//a[text()='${tagName1}']`);
             page.on("dialog", async dialog => dialog.accept());
-            await page.click(`//a[@aria-label='Delete “${validName1}”']`);
-            await expect(page.locator(`//a[text()='${validName1}']`)).toBeHidden();
+            await page.click(`//a[@aria-label='Delete “${tagName1}”']`);
 
-            await page.hover(`//a[text()='${validName2}']`);
-            await page.click(`//a[@aria-label='Delete “${validName2}”']`);
-            await expect(page.locator(`//a[text()='${validName2}']`)).toBeHidden();
+            await expect(page.locator(`//a[text()='${tagName1}']`)).toBeHidden();
+
+            await page.hover(`//a[text()='${tagName2}']`);
+            await page.click(`//a[@aria-label='Delete “${tagName2}”']`);
+
+            await expect(page.locator(`//a[text()='${tagName2}']`)).toBeHidden();
+        });
+    });
+
+
+    test("@POST_TAG_003: Tag - slug auto remove special character", async ({ page }) => {
+        await test.step("Submit slug with special character", async () => {
+            await page.locator("//input[@id='tag-name']").fill(tagName3);
+            await page.locator("//input[@id='tag-slug']").fill(validSlug3);
+            await page.click("//input[@id='submit']");
+
+            await expect(page.locator("//p[text()='Tag added.']")).toBeVisible();
+            await expect(page.locator(`//a[text()='${tagName3}']`)).toBeVisible();
+            await expect(page.locator(`//td[text()='${expectedSlug3}']`)).toBeVisible();
+        });
+
+        await test.step("Remove tag", async () => {
+            await page.hover(`//a[text()='${tagName3}']`);
+            page.on("dialog", async dialog => dialog.accept());
+            await page.click(`//a[@aria-label='Delete “${tagName3}”']`);
+
+            await expect(page.locator(`//a[text()='${tagName3}']`)).toBeHidden();
+        })
+    });
+
+
+    test("@POST_CATEGORY_001: Category - create category success", async ({ page }) => {
+        await test.step("Submit valid category, slug", async () => {
+            await page.click("//a[text()='Categories']");
+            await page.locator("//input[@id='tag-name']").fill(categoryName3);
+            await page.locator("//input[@id='tag-slug']").fill(categorySlug3);
+            await page.click("//input[@id='submit']");
+
+            await expect(page.locator("//p[text()='Category added.']")).toBeVisible();
+            await expect(page.locator(`//td[text()='${expectedCategorySlug3}']`)).toBeVisible();
+        });
+
+        await test.step("Submit valid category, parent", async () => {
+            await page.click("//a[text()='Categories']");
+            await page.locator("//input[@id='tag-name']").fill(categoryName4);
+            await expect(page.locator("//select[@id='parent']")).toBeVisible();
+            await page.locator("//select[@id='parent']").selectOption({
+                label: "k11 class"
+            });
+            await page.click("//input[@id='submit']");
+
+            await expect(page.locator("//p[text()='Category added.']")).toBeVisible();
+            await expect(page.locator(`//td[text()='${expectedCategorySlug4}']`)).toBeVisible();
+        });
+
+        await test.step("Remove category", async () => {
+            await page.click("//a[text()='Categories']");
+            await page.hover(`//a[text()='${categoryName3}']`);
+
+            page.on("dialog", async dialog => dialog.accept());
+            await page.click(`//a[@aria-label='Delete “${categoryName3}”']`);
+
+            await expect(page.locator(`//a[text()='${categoryName3}']`)).toBeHidden();
+
+            await page.hover(`//td[text()='${expectedCategorySlug4}']`);
+            await page.click(`//a[@aria-label='Delete “${categoryName4}”']`);
+
+            await expect(page.locator(`//td[text()='${expectedCategorySlug4}']`)).toBeHidden();
         });
     });
 });
-
