@@ -26,7 +26,7 @@ let categoryName3 = "category Oanh Pham 03";
 let categoryName4 = "category Oanh Pham 04"; let expectedCategorySlug4 = convert(categoryName4);
 
 
-test.describe("Post", async () => {
+test.describe("POST - Post", async () => {
     test.beforeEach(async ({ page }) => {
         await page.goto("https://pw-practice-dev.playwrightvn.com/wp-admin");
         await page.locator("//input[@id='user_login']").fill(usernameValid);
@@ -127,6 +127,7 @@ test.describe("Post", async () => {
         await test.step("Submit valid category, parent", async () => {
             await page.click("//a[text()='Categories']");
             await page.locator("//input[@id='tag-name']").fill(categoryName4);
+
             await expect(page.locator("//select[@id='parent']")).toBeVisible();
             await page.locator("//select[@id='parent']").selectOption({
                 label: "k11 class"
