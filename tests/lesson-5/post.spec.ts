@@ -13,6 +13,25 @@ function convert(text) {
         .replace(/\s+/g, "-");
 };
 
+let xpathUserName = "//input[@id='user_login']";
+let xpathPassword = "//input[@id='user_pass']";
+let xpathBtnLogin = "//input[@id='wp-submit']";
+let xpathMenuPosts = "//div[contains(text(),'Posts')]";
+let xpathMenuTags = "//a[contains(text(),'Tags')]";
+let xpathHeadingTags = "//h1[text()='Tags']";
+let xpathInputTagName = "//input[@id='tag-name']";
+let xpathInputTagSlug = "//input[@id='tag-slug']";
+let xpathBtnAddNewTag = "//input[@id='submit']";
+let xpathMsgRequiredTagName = "//p[text()='A name is required for this term.']";
+let xpathMsgExisTagName = "//p[text()='A term with the name provided already exists in this taxonomy.']";
+let xpathMsgTagAdded = "//p[text()='Tag added.']";
+let xpathMenuCategories = "//a[text()='Categories']";
+let xpathInputCategoryName = "//input[@id='tag-name']";
+let xpathInputCategorySlug = "//input[@id='tag-slug']";
+let xpathBtnAddCategory = "//input[@id='submit']";
+let xpathMsgCategoryAdded = "//p[text()='Category added.']";
+let xpathSelectParent = "//select[@id='parent']";
+
 let usernameValid = "k11-trang";
 let passwordValid = "TCKoQJ4S3hKFyEamNgM0OwMK";
 let existsName = "lesson tag";
@@ -29,50 +48,50 @@ let categoryName4 = "category Oanh Pham 04"; let expectedCategorySlug4 = convert
 test.describe("POST - Post", async () => {
     test.beforeEach(async ({ page }) => {
         await page.goto("https://pw-practice-dev.playwrightvn.com/wp-admin");
-        await page.locator("//input[@id='user_login']").fill(usernameValid);
-        await page.locator("//input[@id='user_pass']").fill(passwordValid);
-        await page.click("//input[@id='wp-submit']");
+        await page.locator(xpathUserName).fill(usernameValid);
+        await page.locator(xpathPassword).fill(passwordValid);
+        await page.click(xpathBtnLogin);
 
         await expect(page).toHaveURL(/wp-admin/);
 
-        await page.hover("//div[contains(text(),'Posts')]");
-        await page.click("//a[contains(text(),'Tags')]");
+        await page.hover(xpathMenuPosts);
+        await page.click(xpathMenuTags);
 
-        await expect(page.locator("//h1[text()='Tags']")).toBeVisible();
+        await expect(page.locator(xpathHeadingTags)).toBeVisible();
     });
 
 
     test("@POST_TAG_001: Tag - add tag failed", async ({ page }) => {
         await test.step("Click button [Add New Tag]", async () => {
-            await page.click("//input[@id='submit']");
+            await page.click(xpathBtnAddNewTag);
 
-            await expect(page.locator("//p[text()='A name is required for this term.']")).toBeVisible();
+            await expect(page.locator(xpathMsgRequiredTagName)).toBeVisible();
         });
 
         await test.step("Submit the already exists name", async () => {
-            await page.locator("//input[@id='tag-name']").fill(existsName);
-            await page.click("//input[@id='submit']");
+            await page.locator(xpathInputTagName).fill(existsName);
+            await page.click(xpathBtnAddNewTag);
 
-            await expect(page.locator("//p[text()='A term with the name provided already exists in this taxonomy.']")).toBeVisible();
+            await expect(page.locator(xpathMsgExisTagName)).toBeVisible();
         })
     });
 
 
     test("@POST_TAG_002: Tag - add tag success", async ({ page }) => {
         await test.step("Submit valid name", async () => {
-            await page.locator("//input[@id='tag-name']").fill(tagName1);
-            await page.click("//input[@id='submit']");
+            await page.locator(xpathInputTagName).fill(tagName1);
+            await page.click(xpathBtnAddNewTag);
 
-            await expect(page.locator("//p[text()='Tag added.']")).toBeVisible();
+            await expect(page.locator(xpathMsgTagAdded)).toBeVisible();
             await expect(page.locator(`//a[text()='${tagName1}']`)).toBeVisible();
         });
 
         await test.step("Submit valid name & slug", async () => {
-            await page.locator("//input[@id='tag-name']").fill(tagName2);
-            await page.locator("//input[@id='tag-slug']").fill(validSlug2);
-            await page.click("//input[@id='submit']");
+            await page.locator(xpathInputTagName).fill(tagName2);
+            await page.locator(xpathInputTagSlug).fill(validSlug2);
+            await page.click(xpathBtnAddNewTag);
 
-            await expect(page.locator("//p[text()='Tag added.']")).toBeVisible();
+            await expect(page.locator(xpathMsgTagAdded)).toBeVisible();
             await expect(page.locator(`//a[text()='${tagName2}']`)).toBeVisible();
             await expect(page.locator(`//td[text()='${expectedSlug2}']`)).toBeVisible();
         });
@@ -94,11 +113,11 @@ test.describe("POST - Post", async () => {
 
     test("@POST_TAG_003: Tag - slug auto remove special character", async ({ page }) => {
         await test.step("Submit slug with special character", async () => {
-            await page.locator("//input[@id='tag-name']").fill(tagName3);
-            await page.locator("//input[@id='tag-slug']").fill(validSlug3);
-            await page.click("//input[@id='submit']");
+            await page.locator(xpathInputTagName).fill(tagName3);
+            await page.locator(xpathInputTagSlug).fill(validSlug3);
+            await page.click(xpathBtnAddNewTag);
 
-            await expect(page.locator("//p[text()='Tag added.']")).toBeVisible();
+            await expect(page.locator(xpathMsgTagAdded)).toBeVisible();
             await expect(page.locator(`//a[text()='${tagName3}']`)).toBeVisible();
             await expect(page.locator(`//td[text()='${expectedSlug3}']`)).toBeVisible();
         });
@@ -115,31 +134,31 @@ test.describe("POST - Post", async () => {
 
     test("@POST_CATEGORY_001: Category - create category success", async ({ page }) => {
         await test.step("Submit valid category, slug", async () => {
-            await page.click("//a[text()='Categories']");
-            await page.locator("//input[@id='tag-name']").fill(categoryName3);
-            await page.locator("//input[@id='tag-slug']").fill(categorySlug3);
-            await page.click("//input[@id='submit']");
+            await page.click(xpathMenuCategories);
+            await page.locator(xpathInputCategoryName).fill(categoryName3);
+            await page.locator(xpathInputCategorySlug).fill(categorySlug3);
+            await page.click(xpathBtnAddCategory);
 
-            await expect(page.locator("//p[text()='Category added.']")).toBeVisible();
+            await expect(page.locator(xpathMsgCategoryAdded)).toBeVisible();
             await expect(page.locator(`//td[text()='${expectedCategorySlug3}']`)).toBeVisible();
         });
 
         await test.step("Submit valid category, parent", async () => {
-            await page.click("//a[text()='Categories']");
-            await page.locator("//input[@id='tag-name']").fill(categoryName4);
+            await page.click(xpathMenuCategories);
+            await page.locator(xpathInputCategoryName).fill(categoryName4);
 
-            await expect(page.locator("//select[@id='parent']")).toBeVisible();
-            await page.locator("//select[@id='parent']").selectOption({
+            await expect(page.locator(xpathSelectParent)).toBeVisible();
+            await page.locator(xpathSelectParent).selectOption({
                 label: "k11 class"
             });
-            await page.click("//input[@id='submit']");
+            await page.click(xpathBtnAddCategory);
 
-            await expect(page.locator("//p[text()='Category added.']")).toBeVisible();
+            await expect(page.locator(xpathMsgCategoryAdded)).toBeVisible();
             await expect(page.locator(`//td[text()='${expectedCategorySlug4}']`)).toBeVisible();
         });
 
         await test.step("Remove category", async () => {
-            await page.click("//a[text()='Categories']");
+            await page.click(xpathMenuCategories);
             await page.hover(`//a[text()='${categoryName3}']`);
 
             page.on("dialog", async dialog => dialog.accept());
