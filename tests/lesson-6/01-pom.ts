@@ -9,9 +9,6 @@ export class MaterialBasePage {
 
     constructor(page: Page) {
         this.page = page;
-        this.xpathRegisterPage = "//a[@href='01-xpath-register-page.html']";
-        this.xpathProductPage = "//a[@href='02-xpath-product-page.html']";
-        this.cssTodoPage = "a[href='03-xpath-todo-list.html']";
     }
 
     async openMaterialPage(url: string) {
@@ -41,10 +38,6 @@ export class RegisterPage extends MaterialBasePage {
 
     constructor(page: Page) {
         super(page);
-        this.xpathUserName = "//input[@id='username']";
-        this.xpathEmail = "//input[@id='email']";
-        this.xpathGenderFemale = "//input[@id='female']";
-        this.xpathGenderMale = "//input[@id='male']";
     }
 
     async fillUserName(username: string) {
