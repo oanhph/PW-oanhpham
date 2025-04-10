@@ -32,3 +32,35 @@ export class MaterialBasePage {
         }
     }
 }
+
+export class RegisterPage extends MaterialBasePage {
+    xpathUserName: string;
+    xpathEmail: string;
+    xpathGenderMale: string;
+    xpathGenderFemale: string;
+
+    constructor(page: Page) {
+        super(page);
+        this.xpathUserName = "//input[@id='username']";
+        this.xpathEmail = "//input[@id='email']";
+        this.xpathGenderFemale = "//input[@id='female']";
+        this.xpathGenderMale = "//input[@id='male']";
+    }
+
+    async fillUserName(username: string) {
+        await this.page.locator(this.xpathUserName).fill(username);
+    }
+
+    async fillEmail(email: string) {
+        await this.page.locator(this.xpathEmail).fill(email);
+    }
+
+    async checkGender(gender: string) {
+        if (gender.toLocaleLowerCase() === "male") {
+            await this.page.locator(this.xpathGenderMale).check();
+        }
+        else if (gender.toLocaleLowerCase() === "female") {
+            await this.page.locator(this.xpathGenderFemale).check();
+        }
+    }
+}
