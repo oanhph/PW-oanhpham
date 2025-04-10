@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { RegisterPage } from "./01-pom";
+import { RegisterPage } from "../../page/register-page";
 
 test("Ex1: Register Page", async ({ page }) => {
     const registerPage = new RegisterPage(page);
@@ -13,5 +13,9 @@ test("Ex1: Register Page", async ({ page }) => {
         await registerPage.fillUserName("marky");
         await registerPage.fillEmail("marky@example.com");
         await registerPage.checkGender("Male");
+        await registerPage.submitRegister();
+
+        await expect(registerPage.thUserName).toBeVisible();
     })
+
 })
