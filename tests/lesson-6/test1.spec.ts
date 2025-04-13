@@ -17,5 +17,4 @@ test("Ex1: Register Page", async ({ page }) => {
 
         await expect(registerPage.thUserName).toBeVisible();
     })
-
 })
