@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { ElementHandle, Locator, Page } from "@playwright/test";
 import { MaterialBasePage } from "./base-page";
 
 export class TodoPage extends MaterialBasePage {
@@ -6,6 +6,7 @@ export class TodoPage extends MaterialBasePage {
     btnAddTask: Locator;
     listTask: Locator;
     // btnDeleteTask: Locator;
+
 
     constructor(page: Page) {
         super(page);
@@ -28,26 +29,68 @@ export class TodoPage extends MaterialBasePage {
         }
     }
 
-    // Delete odd numbered items
-    async deleteOddTasks() {
-        // this.page.on("dialog", async dialog => dialog.accept());
-
-        let countTasks = await this.listTask.elementHandles();
-
-        for (let i = 0; i < countTasks.length; i += 2) {
-            countTasks = await this.listTask.elementHandles();
-            const oddTask = countTasks[i];
-            const btnOddDelete = await oddTask.$("button[id$='-delete']");
-            if (btnOddDelete !== null) {
-                await btnOddDelete.click();
-            }
-        }
+    // Get all tasks
+    async getAllTasks() {
+        return this.listTask.locator("//li"); 
     }
+
+
+
+
+    // Verify task is in viewport
+
+    // async verifyTaskInViewport(taskIndex: number) {
+    //     const taskLocator = (await this.getAllTasks()).nth(taskIndex);
+    //     const taskHandle = await taskLocator.elementHandle() as ElementHandle<HTMLElement>;
+    
+    //     if (!taskHandle) {
+    //         console.log(`Todo ${taskIndex + 1} không tồn tại hoặc không hiển thị.`);
+    //         return;
+    //     }
+    
+    //     const isInViewport = await taskHandle.isInViewport();
+    
+    //     console.log(`Todo ${taskIndex + 1} is ${isInViewport ? "" : "NOT "}in the viewport.`);
+    // }
+    
+    
+
+
+
+    // async verifyTaskInViewport(taskIndex: number) {
+    //     let tasks = await this.getAllTasks(); 
+    //     let taskLocator = tasks.nth(taskIndex);
+    //     let taskHandle = await taskLocator.elementHandles();
+    //     let isInViewport = await taskHandle.isInViewport(); 
+    //     if (isInViewport) {
+    //         console.log("Is in the viewport");
+    //     }
+    //     else {
+    //         console.log("Not in the viewport");
+    //     }
+
+    // }
 }
 
 
 
+    // Delete odd numbered items
+    // async deleteOddTasks() {
+    //     // this.page.on("dialog", async dialog => dialog.accept());
 
+    //     let countTasks = await this.listTask.elementHandles();
+
+    //     for (let i = 0; i < countTasks.length; i += 2) {
+    //         countTasks = await this.listTask.elementHandles();
+            
+    //         const oddTask = countTasks[i];
+    //         console.log(countTasks);
+    //         const btnOddDelete = await oddTask.$("button[id$='-delete']");
+    //         if (btnOddDelete !== null) {
+    //             await btnOddDelete.click();
+    //         }
+    //     }
+    // }
 
 
 

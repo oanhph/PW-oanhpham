@@ -10,11 +10,15 @@ test("Ex3: Todo page", async ({ page }) => {
     })
 
     await test.step("Add 100 todo items", async () => {
-        await todoPage.addTasks(4);
+        await todoPage.addTasks(100);
     })
 
-    await test.step("Delete odd numbered tasks", async () => {
-        page.on("dialog", async dialog => dialog.accept());
-        await todoPage.deleteOddTasks();
-    })
+    // await test.step("Delete odd numbered tasks", async () => {
+    //     page.on("dialog", async dialog => dialog.accept());
+    //     await todoPage.deleteOddTasks();
+    // })
+
+    // await test.step("Verify 'Todo 90' is in the viewport", async () => {
+    //     await todoPage.verifyTaskInViewport(89);
+    // })
 })
