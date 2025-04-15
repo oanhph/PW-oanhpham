@@ -12,8 +12,7 @@ export class TodoPage extends MaterialBasePage {
         super(page);
         this.inputTask = page.locator("//input[@id='new-task']");
         this.btnAddTask = page.locator("//button[@id='add-task']");
-        // this.listTask = page.locator("//ul[@id='task-list']");
-        this.listTask = page.locator("//li");
+        this.listTask = page.locator("//ul/li");
         // this.btnDeleteTask = page.locator(`//button[@id='todo-${i}-delete']`);
     }
 
@@ -37,31 +36,12 @@ export class TodoPage extends MaterialBasePage {
 
     // Delete odd numbered items
     async deleteOddTasks() {
-        // this.page.on("dialog", async dialog => dialog.accept());
-
-        // await this.listTask.first().waitFor({ state: "visible" });
-
-        // let countTasks = await this.listTask.elementHandles();
-
-        // for (let i = 0; i < countTasks.length; i += 2) {
-        //     countTasks = await this.listTask.elementHandles();
-        //     console.log(`Lần lặp i = ${i}, số task hiện tại: ${countTasks.length}`);
-
-
-        //     const oddTask = countTasks[i];
-        //     console.log(countTasks);
-        //     const btnOddDelete = await oddTask.$("button[id$='-delete']");
-        //     if (btnOddDelete !== null) {
-        //         await btnOddDelete.click();
-        //     }
-        // }
         this.page.on("dialog", async dialog => dialog.accept());
         let countTasks = await this.listTask.count();
         for (let i = countTasks - 1; i >= 0; i -= 2) {
             let oddTask = this.listTask.nth(i);
             let btnOddDelete = oddTask.locator("button[id$='-delete']").first();
             await btnOddDelete.click();
-            await this.page.waitForTimeout(500);
             countTasks = await this.listTask.count();
         };
     }
