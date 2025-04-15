@@ -13,10 +13,10 @@ test("Ex3: Todo page", async ({ page }) => {
         await todoPage.addTasks(100);
     })
 
-    // await test.step("Delete odd numbered tasks", async () => {
-    //     page.on("dialog", async dialog => dialog.accept());
-    //     await todoPage.deleteOddTasks();
-    // })
+    await test.step("Delete odd numbered tasks", async () => {
+        // page.on("dialog", async dialog => dialog.accept());
+        await todoPage.deleteOddTasks();
+    })
 
     // Only run this step if the task has not been deleted
     await test.step("Verify 'Todo 90' is in the viewport", async () => {
