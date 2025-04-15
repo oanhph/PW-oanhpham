@@ -4,13 +4,13 @@ import { MaterialBasePage } from "./base-page";
 export class TodoPage extends MaterialBasePage {
     inputTask: Locator;
     btnAddTask: Locator;
-    listTask: Locator;
+    elmTask: Locator;
 
     constructor(page: Page) {
         super(page);
         this.inputTask = page.locator("//input[@id='new-task']");
         this.btnAddTask = page.locator("//button[@id='add-task']");
-        this.listTask = page.locator("//ul/li");
+        this.elmTask = page.locator("//ul/li");
     }
 
     // Add task 
@@ -24,18 +24,18 @@ export class TodoPage extends MaterialBasePage {
     // Delete odd numbered items
     async deleteOddTasks() {
         this.page.on("dialog", async dialog => dialog.accept());
-        let countTasks = await this.listTask.count();
+        let countTasks = await this.elmTask.count();
         for (let i = countTasks - 1; i >= 0; i -= 2) {
-            let oddTask = this.listTask.nth(i);
+            let oddTask = this.elmTask.nth(i);
             let btnOddDelete = oddTask.locator("button[id$='-delete']").first();
             await btnOddDelete.click();
-            countTasks = await this.listTask.count();
+            countTasks = await this.elmTask.count();
         };
     }
 
     // Verify task is in viewport
     async verifyTaskInViewport(taskIndex: number) {
-        let taskLocator = this.listTask.nth(taskIndex);
+        let taskLocator = this.elmTask.nth(taskIndex);
 
         let isInViewport = await taskLocator.evaluate((el) => {
             let rect = el.getBoundingClientRect();
@@ -49,18 +49,16 @@ export class TodoPage extends MaterialBasePage {
 
         console.log(`Task ${taskIndex + 1} ${isInViewport ? "nằm" : "không nằm"} trong viewport.`);
     }
+
+    // Verify task order is in DOM 
+    async verifyElementInDOM(taskNumber: number): Promise<boolean> {
+        let taskText = this.page.locator(`//li[span[text()='Todo ${taskNumber}']]`);
+        let count = await taskText.count();
+
+        if (count === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

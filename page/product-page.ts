@@ -6,6 +6,7 @@ export class ProductPage extends MaterialBasePage {
     constructor(page: Page) {
         super(page);
     }
+
     // Generate xpath based on product ID
     getAddButtonXpathByProductId(productId: number): string {
         return `//button[@class='add-to-cart' and @data-product-id='${productId}']`;

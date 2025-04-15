@@ -17,7 +17,13 @@ test("Ex3: Todo page", async ({ page }) => {
         await todoPage.deleteOddTasks();
     })
 
+    // Only run this step if the task has not been deleted
     await test.step("Verify 'Todo 90' is in the viewport", async () => {
         await todoPage.verifyTaskInViewport(89);
+    })
+
+    await test.step("Verify Todo 21 in DOM", async () => {
+        let result = await todoPage.verifyElementInDOM(21);
+        console.log(result);
     })
 })
