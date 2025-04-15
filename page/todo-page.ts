@@ -5,34 +5,21 @@ export class TodoPage extends MaterialBasePage {
     inputTask: Locator;
     btnAddTask: Locator;
     listTask: Locator;
-    // btnDeleteTask: Locator;
-
 
     constructor(page: Page) {
         super(page);
         this.inputTask = page.locator("//input[@id='new-task']");
         this.btnAddTask = page.locator("//button[@id='add-task']");
         this.listTask = page.locator("//ul/li");
-        // this.btnDeleteTask = page.locator(`//button[@id='todo-${i}-delete']`);
     }
 
-    // Generate xpath based on text
-    // getBtnDeleteTaskXpathByText(i: number): string {
-    //     return `//button[@id='todo-${i}-delete']`;
-    // }
-
-    // Add task
+    // Add task 
     async addTasks(count: number) {
         for (let i = 1; i <= count; i++) {
             await this.inputTask.fill(`Todo ${i}`);
             await this.btnAddTask.click();
         }
     }
-
-    // Get all tasks
-    // async getAllTasks() {
-    //     return this.listTask.locator("//li"); 
-    // }
 
     // Delete odd numbered items
     async deleteOddTasks() {
@@ -47,38 +34,21 @@ export class TodoPage extends MaterialBasePage {
     }
 
     // Verify task is in viewport
+    async verifyTaskInViewport(taskIndex: number) {
+        let taskLocator = this.listTask.nth(taskIndex);
 
-    // async verifyTaskInViewport(taskIndex: number) {
-    //     const taskLocator = (await this.getAllTasks()).nth(taskIndex);
-    //     const taskHandle = await taskLocator.elementHandle() as ElementHandle<HTMLElement>;
+        let isInViewport = await taskLocator.evaluate((el) => {
+            let rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        });
 
-    //     if (!taskHandle) {
-    //         console.log(`Todo ${taskIndex + 1} không tồn tại hoặc không hiển thị.`);
-    //         return;
-    //     }
-
-    //     const isInViewport = await taskHandle.isInViewport();
-
-    //     console.log(`Todo ${taskIndex + 1} is ${isInViewport ? "" : "NOT "}in the viewport.`);
-    // }
-
-
-
-
-
-    // async verifyTaskInViewport(taskIndex: number) {
-    //     let tasks = await this.getAllTasks(); 
-    //     let taskLocator = tasks.nth(taskIndex);
-    //     let taskHandle = await taskLocator.elementHandles();
-    //     let isInViewport = await taskHandle.isInViewport(); 
-    //     if (isInViewport) {
-    //         console.log("Is in the viewport");
-    //     }
-    //     else {
-    //         console.log("Not in the viewport");
-    //     }
-
-    // }
+        console.log(`Task ${taskIndex + 1} ${isInViewport ? "nằm" : "không nằm"} trong viewport.`);
+    }
 }
 
 

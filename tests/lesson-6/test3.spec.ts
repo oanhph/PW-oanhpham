@@ -17,7 +17,7 @@ test("Ex3: Todo page", async ({ page }) => {
         await todoPage.deleteOddTasks();
     })
 
-    // await test.step("Verify 'Todo 90' is in the viewport", async () => {
-    //     await todoPage.verifyTaskInViewport(89);
-    // })
+    await test.step("Verify 'Todo 90' is in the viewport", async () => {
+        await todoPage.verifyTaskInViewport(89);
+    })
 })
