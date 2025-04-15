@@ -14,6 +14,7 @@ test("Ex3: Todo page", async ({ page }) => {
     })
 
     await test.step("Delete odd numbered tasks", async () => {
+        // page.on("dialog", async dialog => dialog.accept());
         await todoPage.deleteOddTasks();
     })
 

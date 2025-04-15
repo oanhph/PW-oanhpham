@@ -10,7 +10,9 @@ export class TodoPage extends MaterialBasePage {
         super(page);
         this.inputTask = page.locator("//input[@id='new-task']");
         this.btnAddTask = page.locator("//button[@id='add-task']");
-        this.elmTask = page.locator("//ul/li");
+        // this.listTask = page.locator("//ul[@id='task-list']");
+        this.listTask = page.locator("//li");
+        // this.btnDeleteTask = page.locator(`//button[@id='todo-${i}-delete']`);
     }
 
     // Add task 
@@ -21,44 +23,87 @@ export class TodoPage extends MaterialBasePage {
         }
     }
 
+    // Get all tasks
+    // async getAllTasks() {
+    //     return this.listTask.locator("//li"); 
+    // }
+
     // Delete odd numbered items
     async deleteOddTasks() {
+        // this.page.on("dialog", async dialog => dialog.accept());
+
+        // await this.listTask.first().waitFor({ state: "visible" });
+
+        // let countTasks = await this.listTask.elementHandles();
+
+        // for (let i = 0; i < countTasks.length; i += 2) {
+        //     countTasks = await this.listTask.elementHandles();
+        //     console.log(`Lần lặp i = ${i}, số task hiện tại: ${countTasks.length}`);
+
+
+        //     const oddTask = countTasks[i];
+        //     console.log(countTasks);
+        //     const btnOddDelete = await oddTask.$("button[id$='-delete']");
+        //     if (btnOddDelete !== null) {
+        //         await btnOddDelete.click();
+        //     }
+        // }
         this.page.on("dialog", async dialog => dialog.accept());
-        let countTasks = await this.elmTask.count();
+        let countTasks = await this.listTask.count();
         for (let i = countTasks - 1; i >= 0; i -= 2) {
-            let oddTask = this.elmTask.nth(i);
+            let oddTask = this.listTask.nth(i);
             let btnOddDelete = oddTask.locator("button[id$='-delete']").first();
             await btnOddDelete.click();
-            countTasks = await this.elmTask.count();
+            await this.page.waitForTimeout(500);
+            countTasks = await this.listTask.count();
         };
     }
 
     // Verify task is in viewport
-    async verifyTaskInViewport(taskIndex: number) {
-        let taskLocator = this.elmTask.nth(taskIndex);
 
-        let isInViewport = await taskLocator.evaluate((el) => {
-            let rect = el.getBoundingClientRect();
-            return (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
-        });
+    // async verifyTaskInViewport(taskIndex: number) {
+    //     const taskLocator = (await this.getAllTasks()).nth(taskIndex);
+    //     const taskHandle = await taskLocator.elementHandle() as ElementHandle<HTMLElement>;
 
-        console.log(`Task ${taskIndex + 1} ${isInViewport ? "nằm" : "không nằm"} trong viewport.`);
-    }
+    //     if (!taskHandle) {
+    //         console.log(`Todo ${taskIndex + 1} không tồn tại hoặc không hiển thị.`);
+    //         return;
+    //     }
 
-    // Verify task order is in DOM 
-    async verifyElementInDOM(taskNumber: number): Promise<boolean> {
-        let taskText = this.page.locator(`//li[span[text()='Todo ${taskNumber}']]`);
-        let count = await taskText.count();
+    //     const isInViewport = await taskHandle.isInViewport();
 
-        if (count === 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+    //     console.log(`Todo ${taskIndex + 1} is ${isInViewport ? "" : "NOT "}in the viewport.`);
+    // }
+
+
+
+
+
+    // async verifyTaskInViewport(taskIndex: number) {
+    //     let tasks = await this.getAllTasks(); 
+    //     let taskLocator = tasks.nth(taskIndex);
+    //     let taskHandle = await taskLocator.elementHandles();
+    //     let isInViewport = await taskHandle.isInViewport(); 
+    //     if (isInViewport) {
+    //         console.log("Is in the viewport");
+    //     }
+    //     else {
+    //         console.log("Not in the viewport");
+    //     }
+
+    // }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
