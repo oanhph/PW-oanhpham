@@ -12,6 +12,7 @@ export class MaterialBasePage {
         this.xpathRegisterPage = "//a[@href='01-xpath-register-page.html']";
         this.xpathProductPage = "//a[@href='02-xpath-product-page.html']";
         this.cssTodoPage = "a[href='03-xpath-todo-list.html']";
+        this.personalNote = page.locator("//a[@href='04-xpath-personal-notes.html']");
     }
 
     async openMaterialPage(url: string) {
@@ -29,6 +30,8 @@ export class MaterialBasePage {
             case "todo":
                 await this.page.locator(this.cssTodoPage).click();
                 break;
+            case "personal note":
+                await this.personalNote.click();
         }
     }
 }
