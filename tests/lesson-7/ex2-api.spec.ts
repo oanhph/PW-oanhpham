@@ -1,13 +1,12 @@
-import test, { expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { ConduitAPI } from "../../page-api/conduit-api";
-import { beforeEach } from "node:test";
 
-test.describe("Ex2", async () => {
+test.describe("Article", async () => {
     let token: string;
 
-    test.beforeEach(async ({request}) => {
+    test.beforeEach(async ({ request }) => {
         let conduitPOM = new ConduitAPI(request, "https://conduit-api.bondaracademy.com");
-        const response = await conduitPOM.login("oanhpham+1@gmail.com", "123456");
+        const response = await conduitPOM.login("oanhpham+2@gmail.com", "123456");
 
         const statusCode = response.status();
         expect(statusCode).toEqual(200);
@@ -16,6 +15,30 @@ test.describe("Ex2", async () => {
         token = resBody.user.token;
         console.log(token);
     })
-    
 
+    test("Create new article", async ({ request }) => {
+        let conduitPOM = new ConduitAPI(request, "https://conduit-api.bondaracademy.com");
+        const url = `${conduitPOM.baseUrl}/api/articles`;
+        const response = await request.post(url,
+            {
+                headers: {
+                    authorization: `Token ${token}`
+                },
+                data: {
+                    article: {
+                        "title": "API in Playwright",
+                        "description": "How to use Playwright to create article",
+                        "body": "",
+                        "tagList": [
+                            "Playwright Viet Nam",
+                            "pw",
+                            "pw-k6"
+                        ]
+                    }
+                }
+            }
+        )
+        const statusCode = response.status();
+        expect(statusCode).toEqual(422);
+    })
 })
