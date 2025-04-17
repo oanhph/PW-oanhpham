@@ -28,7 +28,7 @@ test.describe("Article", async () => {
                     article: {
                         "title": "API in Playwright",
                         "description": "How to use Playwright to create article",
-                        "body": "",
+                        "body": "How to use Playwright to create article",
                         "tagList": [
                             "Playwright Viet Nam",
                             "pw",
@@ -39,6 +39,10 @@ test.describe("Article", async () => {
             }
         )
         const statusCode = response.status();
-        expect(statusCode).toEqual(422);
+        expect(statusCode).toEqual(201);
+
+        const resBody = await response.json();
+        const articleTitle = resBody.article.title;
+        expect(articleTitle).toEqual("API in Playwright");
     })
 })
