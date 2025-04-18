@@ -68,4 +68,15 @@ export class ConduitAPI {
         return response;
     }
 
+    async deleteArticle(token: string, slug: string) {
+        const url = `${this.baseUrl}/api/articles/${slug}`;
+        const response = await this.request.delete(url,
+            {
+                headers: {
+                    authorization: `Token ${token}`
+                }
+            }
+        )
+        return response;
+    }
 }
