@@ -1,0 +1,11 @@
+- git commit --amend: Thay đổi commit msg 
+    - i: Vào chế độ insert 
+    - esc: Thoát insert 
+    - :wq: write & quit 
+- git commit --amend -m "msg": Thay đổi commit msg 
+- git restore --staged <file>: Đưa từ vùng staging về working directory 
+- git reset HEAD~<number>: Đưa từ vùng repository về working directory (uncommit)
+- git branch <branch_name>: Tạo branch 
+- git checkout <branch_name>: Tạo branch 
+- git checkout -b <branch_name>: Tạo branch 
+- git checkout <revision>: Trở về revision
