@@ -20,7 +20,7 @@ test("Article", async ({ request }) => {
     });
 
     await test.step("Add new article", async () => {
-        const articleData = {
+        const articleInput = {
             title: "API in Playwright",
             description: "How to use Playwright to create article",
             body: "How to use Playwright to create article",
@@ -30,7 +30,7 @@ test("Article", async ({ request }) => {
                 "pw-k6"
             ]
         };
-        const articleRes = await conduitPOM.addArticle(token, articleData);
+        const articleRes = await conduitPOM.addArticle(token, articleInput);
 
         const statusCode = articleRes.status();
         expect(statusCode).toEqual(201);
