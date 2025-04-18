@@ -18,8 +18,8 @@
 - Run command trước mỗi lần start code, chỉ lấy dữ liệu của nhánh đó về local 
 - Command: 
     - git pull origin main 
-    - git pull origin <branch_nam>
-    - git pull <remote_name> <branhc_name>
+    - git pull origin <branch_name>
+    - git pull <remote_name> <branch_name>
 
 ## Merge request
 
