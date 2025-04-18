@@ -4,6 +4,8 @@ import { ConduitAPI } from "../../page-api/conduit-api";
 test("Add new comment", async ({ request }) => {
     let token: string;
     let articleSlug: string;
+    let arrayComment: {id: number, body: string} [] =[];
+
     let conduitPOM = new ConduitAPI(request, "https://conduit-api.bondaracademy.com");
 
     await test.step("Login", async () => {
@@ -51,6 +53,27 @@ test("Add new comment", async ({ request }) => {
 
             const statusCode = commentRes.status();
             expect(statusCode).toEqual(200);
+
+            const commentBody = await commentRes.json();
+            arrayComment.push({
+                id: commentBody.comment.id,
+                body: commentBody.comment.body
+            })
+            console.log(arrayComment);
+        }
+    })
+
+    await test.step("Delete 'Comment 02' and 'Comment 05'", async () => {
+        const arrayCommentDelete = arrayComment.filter((cmt: {id: number, body: string}) => {
+            return cmt.body === "Comment 02" || cmt.body === "Comment 05"
+        });
+        console.log(arrayCommentDelete);
+
+        for (let comment of arrayCommentDelete) {
+            const commentDeleteRes = await conduitPOM.deleteCommentFromArticle(token, articleSlug, comment.id);
+            const statusCode = commentDeleteRes.status();
+            expect(statusCode).toEqual(200);
+            console.log(`Deleted comment: ${comment.body}`);
         }
     })
 })

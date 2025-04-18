@@ -11,14 +11,16 @@ export class ConduitAPI {
 
     async login(email: string, password: string) {
         const url = `${this.baseUrl}/api/users/login`;
-        const response = await this.request.post(url, {
-            data: {
-                user: {
-                    email: email,
-                    password: password
+        const response = await this.request.post(url,
+            {
+                data: {
+                    user: {
+                        email: email,
+                        password: password
+                    }
                 }
             }
-        })
+        )
         return response
     }
 
@@ -48,6 +50,18 @@ export class ConduitAPI {
                     comment: {
                         body: comment
                     }
+                }
+            }
+        )
+        return response;
+    }
+
+    async deleteCommentFromArticle(token: string, slug: string, commentId: number) {
+        const url = `${this.baseUrl}/api/articles/${slug}/comments/${commentId}`;
+        const response = await this.request.delete(url,
+            {
+                headers: {
+                    authorization: `Token ${token}`
                 }
             }
         )
