@@ -56,6 +56,13 @@
 ## Playwright assertion
 - Không dùng web-first assertion: Chờ cứng X (s)
 - Dùng web-first assertion" Chờ flexible X (s)
+- VD về web-first assertion: 
+    ```
+    await expect(page.locator('text=Đăng nhập')).toBeVisible();
+    await expect(page.locator('.success-msg')).toHaveText('Đăng nhập thành công');
+    await expect(page).toHaveURL(/dashboard/);
+    await expect(page.locator('input[name="email"]')).toHaveAttribute('type', 'email');
+    await expect(page.locator('#status')).toHaveText('Sẵn sàng', { timeout: 10000 }); // chờ tối đa 10 giây
 
 
 # CSS SELECTOR & PLAYWRIGHT SELECTOR
