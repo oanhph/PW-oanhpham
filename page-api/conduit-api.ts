@@ -21,4 +21,37 @@ export class ConduitAPI {
         })
         return response
     }
+
+    async addArticle(token: string, articleData: any) {
+        const url = `${this.baseUrl}/api/articles/`;
+        const response = await this.request.post(url,
+            {
+                headers: {
+                    authorization: `Token ${token}`
+                },
+                data: {
+                    article: articleData
+                }
+            }
+        )
+        return response;
+    }
+
+    async addCommentToArticle(token: string, slug: string, comment: any) {
+        const url = `${this.baseUrl}/api/articles/${slug}/comments`;
+        const response = await this.request.post(url,
+            {
+                headers: {
+                    authorization: `Token ${token}`
+                },
+                data: {
+                    comment: {
+                        body: comment
+                    }
+                }
+            }
+        )
+        return response;
+    }
+
 }
