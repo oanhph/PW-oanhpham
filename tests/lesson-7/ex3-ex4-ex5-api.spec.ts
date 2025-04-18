@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { ConduitAPI } from "../../page-api/conduit-api";
 
-test("Add new comment", async ({ request }) => {
+test("Article", async ({ request }) => {
     let token: string;
     let articleSlug: string;
     let arrayComment: { id: number, body: string }[] = [];
