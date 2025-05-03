@@ -31,7 +31,6 @@ let xpathSelectParent = "//select[@id='parent']";
 
 let usernameValid = "k11-trang";
 let passwordValid = "TCKoQJ4S3hKFyEamNgM0OwMK";
-let existsName = "lesson tag";
 let tagName1 = "tag Oanh Pham";
 let tagName2 = "tag Oanh Pham 02";
 let tagName3 = "tag Oanh Pham 03";
@@ -68,7 +67,7 @@ test.describe("POST - Post", async () => {
         });
 
         await test.step("Submit the already exists name", async () => {
-            await page.locator(xpathInputName).fill(existsName);
+            await page.locator(xpathInputName).fill("lesson tag");
             await page.click(xpathBtnAddNew);
 
             await expect(page.locator(xpathMsgExisTagName)).toBeVisible();
