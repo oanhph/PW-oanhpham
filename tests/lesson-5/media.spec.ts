@@ -6,10 +6,10 @@ let xpathBtnLogin = "//input[@id='wp-submit']";
 let xpathMenuMedia = "//div[contains(text(),'Media')]";
 let xpathMenuLibrary = "//a[contains(text(),'Library')]";
 let xpathHeadingMediaLibrary = "//h1[text()='Media Library']";
-let xpathBtnAddNewMediaFile = "//a[@role='button' and text()='Add Media File']";
+let xpathBtnAddNewMediaFile = "//h1[text()='Media Library']/following-sibling::a";
 let xpathBtnSelectFile = "//input[@type='file']";
-let xpathBtnBulkSelect = "//button[text()='Bulk select']";
-let xpathBtnDeletePermanently = "//button[@class='button media-button button-primary button-large delete-selected-button']";
+let xpathBtnBulkSelect = "//button[contains(text(),'Bulk select')]";
+let xpathBtnDeletePermanently = "//select[@id='media-attachment-filters']/following-sibling::button[contains(text(),'Delete permanently')]";
 
 let usernameValid = "k11-trang";
 let passwordValid = "TCKoQJ4S3hKFyEamNgM0OwMK";
