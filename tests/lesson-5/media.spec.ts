@@ -17,17 +17,16 @@ let password = "TCKoQJ4S3hKFyEamNgM0OwMK";
 
 test.describe("MEDIA - Media", async () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto("https://pw-practice-dev.playwrightvn.com/wp-admin");
-        await page.locator(xpathUserName).fill(username);
-        await page.locator(xpathPassword).fill(password);
-        await page.click(xpathBtnLogin);
-
-        await expect(page).toHaveURL(/wp-admin/);
-
-        await page.hover(xpathMenuMedia);
-        await page.click(xpathMenuLibrary);
-
-        await expect(page.locator(xpathHeadingMediaLibrary)).toBeVisible();
+        await test.step("Go to Library page", async () => {
+            await page.goto("https://pw-practice-dev.playwrightvn.com/wp-admin");
+            await page.locator(xpathUserName).fill(username);
+            await page.locator(xpathPassword).fill(password);
+            await page.click(xpathBtnLogin);
+            await page.waitForLoadState("load");
+            await page.hover(xpathMenuMedia);
+            await page.click(xpathMenuLibrary);
+            await expect(page.locator(xpathHeadingMediaLibrary)).toBeVisible();
+        })
     });
 
     test("@MEDIA_FILES_001: Media - upload file success", async ({ page }) => {
@@ -35,13 +34,11 @@ test.describe("MEDIA - Media", async () => {
             await page.click(xpathBtnAddNewMediaFile);
             await page.locator(xpathBtnSelectFile).setInputFiles("tests/lesson-5/data-media.txt");
             await page.waitForTimeout(2000);
-
             await expect(page.locator(xpathFile)).toBeVisible();
         });
 
         await test.step("F5 page", async () => {
             await page.reload();
-
             await expect(page.locator(xpathFile)).toBeVisible();
         });
 
