@@ -9,7 +9,7 @@ let xpathHeadingMediaLibrary = "//h1[text()='Media Library']";
 let xpathBtnAddNewMediaFile = "//h1[text()='Media Library']/following-sibling::a";
 let xpathBtnSelectFile = "//input[@type='file']";
 let xpathBtnBulkSelect = "//button[contains(text(),'Bulk select')]";
-let xpathFile = "//h2[text()='Media list']/following::div[contains(text(),'data-media.txt')]"
+let xpathFile = "//h2[text()='Media list']/following::li[contains(@aria-label,'data-media')]"
 let xpathBtnDeletePermanently = "//select[@id='media-attachment-filters']/following-sibling::button[contains(text(),'Delete permanently')]";
 
 let username = "k11-trang";
@@ -52,7 +52,7 @@ test.describe("MEDIA - Media", async () => {
             page.on("dialog", async dialog => dialog.accept());
             await page.click(xpathBtnDeletePermanently);
 
-            await page.locator(xpathBtnBulkSelect).waitFor({ state: 'visible' });
+            await expect(page.locator(xpathFile)).not.toBeVisible();
         });
     });
 });
