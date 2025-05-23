@@ -9,16 +9,17 @@ let xpathHeadingMediaLibrary = "//h1[text()='Media Library']";
 let xpathBtnAddNewMediaFile = "//h1[text()='Media Library']/following-sibling::a";
 let xpathBtnSelectFile = "//input[@type='file']";
 let xpathBtnBulkSelect = "//button[contains(text(),'Bulk select')]";
+let xpathFile = "//h2[text()='Media list']/following::div[contains(text(),'data-media.txt')]"
 let xpathBtnDeletePermanently = "//select[@id='media-attachment-filters']/following-sibling::button[contains(text(),'Delete permanently')]";
 
-let usernameValid = "k11-trang";
-let passwordValid = "TCKoQJ4S3hKFyEamNgM0OwMK";
+let username = "k11-trang";
+let password = "TCKoQJ4S3hKFyEamNgM0OwMK";
 
 test.describe("MEDIA - Media", async () => {
     test.beforeEach(async ({ page }) => {
         await page.goto("https://pw-practice-dev.playwrightvn.com/wp-admin");
-        await page.locator(xpathUserName).fill(usernameValid);
-        await page.locator(xpathPassword).fill(passwordValid);
+        await page.locator(xpathUserName).fill(username);
+        await page.locator(xpathPassword).fill(password);
         await page.click(xpathBtnLogin);
 
         await expect(page).toHaveURL(/wp-admin/);
@@ -35,18 +36,18 @@ test.describe("MEDIA - Media", async () => {
             await page.locator(xpathBtnSelectFile).setInputFiles("tests/lesson-5/data-media.txt");
             await page.waitForTimeout(2000);
 
-            await expect(page.locator("//div[text()='data-media.txt']")).toBeVisible();
+            await expect(page.locator(xpathFile)).toBeVisible();
         });
 
         await test.step("F5 page", async () => {
             await page.reload();
 
-            await expect(page.locator("//div[text()='data-media.txt']")).toBeVisible();
+            await expect(page.locator(xpathFile)).toBeVisible();
         });
 
         await test.step("Remove file", async () => {
             await page.click(xpathBtnBulkSelect);
-            await page.locator("//li[@aria-label='data-media']").check();
+            await page.locator(xpathFile).check();
 
             page.on("dialog", async dialog => dialog.accept());
             await page.click(xpathBtnDeletePermanently);
