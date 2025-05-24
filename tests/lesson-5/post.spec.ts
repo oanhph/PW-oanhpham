@@ -23,7 +23,7 @@ let xpathInputName = "//input[@id='tag-name']";
 let xpathInputSlug = "//input[@id='tag-slug']";
 let xpathBtnAddNew = "//input[@id='submit']";
 let xpathMsgRequiredTagName = "//p[text()='A name is required for this term.']";
-let xpathMsgExisTagName = "//p[text()='A term with the name provided already exists in this taxonomy.']";
+let xpathMsgExistTagName = "//p[text()='A term with the name provided already exists in this taxonomy.']";
 let xpathMsgTagAdded = "//p[text()='Tag added.']";
 let xpathMenuCategories = "//a[text()='Categories']";
 let xpathMsgCategoryAdded = "//p[text()='Category added.']";
@@ -70,7 +70,7 @@ test.describe("POST - Post", async () => {
             await page.locator(xpathInputName).fill("lesson tag");
             await page.click(xpathBtnAddNew);
 
-            await expect(page.locator(xpathMsgExisTagName)).toBeVisible();
+            await expect(page.locator(xpathMsgExistTagName)).toBeVisible();
         })
     });
 
