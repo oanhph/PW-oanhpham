@@ -39,14 +39,8 @@ let xpathSelectParent = "//select[@id='parent']";
 
 let username = "k11-trang";
 let password = "TCKoQJ4S3hKFyEamNgM0OwMK";
-let tagName3 = "tag Oanh Pham 03";
-let validSlug3 = "Đây là tag đặc biệt @100 $200";
-// let categorySlug3 = "Đây là category đặc biệt @100 $200"; let expectedCategorySlug3 = convert(categorySlug3);
-// let categoryName3 = "category Oanh Pham 03";
-// let categoryName4 = "category Oanh Pham 04"; let expectedCategorySlug4 = convert(categoryName4);
 
-
-test.describe("POST - Post", async () => {
+test.describe("POST - Post tag failed", async () => {
     test.beforeEach(async ({ page }) => {
         await test.step("Go to Tag page", async () => {
             await page.goto("https://pw-practice-dev.playwrightvn.com/wp-admin");
@@ -60,8 +54,9 @@ test.describe("POST - Post", async () => {
         })
     });
 
-    let existsName = "lesson tag";
     test("@POST_TAG_001: Tag - add tag failed", async ({ page }) => {
+        let existsName = "lesson tag";
+
         await test.step("Click button [Add New Tag]", async () => {
             await page.click(xpathBtnAddNew);
 
@@ -76,10 +71,58 @@ test.describe("POST - Post", async () => {
         })
     });
 
+
+
+    // await test.step("Remove tag", async () => {
+    //     page.on("dialog", async dialog => dialog.accept());
+
+    //     await page.locator(getXpathNameInTable(name1)).hover();
+    //     await page.locator(getXpathBtnDelete(name1)).click();
+    //     await expect(page.locator(getXpathNameInTable(name1))).toBeHidden();
+
+    //     await page.locator(getXpathNameInTable(name2)).hover();
+    //     await page.locator(getXpathBtnDelete(name2)).click();
+    //     await expect(page.locator(getXpathNameInTable(name2))).toBeHidden();
+    // });
+
+
+});
+
+test.describe("POST - Add Tag success", async () => {
+    test.beforeEach(async ({ page }) => {
+        await test.step("Go to Tag page", async () => {
+            await page.goto("https://pw-practice-dev.playwrightvn.com/wp-admin");
+            await page.locator(xpathUserName).fill(username);
+            await page.locator(xpathPassword).fill(password);
+            await page.click(xpathBtnLogin);
+            await page.waitForLoadState("load");
+            await page.hover(xpathMenuPosts);
+            await page.click(xpathMenuTags);
+            await expect(page.locator(xpathHeadingTags)).toBeVisible();
+        })
+    });
+
+    test.afterEach(async ({ page }) => {
+        page.on("dialog", async dialog => dialog.accept());
+
+        await page.locator(getXpathNameInTable(name1)).hover();
+        await page.locator(getXpathBtnDelete(name1)).click();
+        await expect(page.locator(getXpathNameInTable(name1))).toBeHidden();
+
+        await page.locator(getXpathNameInTable(name2)).hover();
+        await page.locator(getXpathBtnDelete(name2)).click();
+        await expect(page.locator(getXpathNameInTable(name2))).toBeHidden();
+
+        await page.locator(getXpathNameInTable(name3)).hover();
+        await page.locator(getXpathBtnDelete(name3)).click();
+        await expect(page.locator(getXpathNameInTable(name3))).toBeHidden();
+    });
+
     let name1 = "tag Oanh Pham";
     let name2 = "Rennie Pham";
     let slug2 = "rennie-pham";
     test("@POST_TAG_002: Tag - add tag success", async ({ page }) => {
+
         await test.step("Submit valid name", async () => {
             await page.locator(xpathInputName).fill(name1);
             await page.click(xpathBtnAddNew);
@@ -97,57 +140,21 @@ test.describe("POST - Post", async () => {
             await expect(page.locator(getXpathNameInTable(name2))).toBeVisible();
             await expect(page.locator(getXpathSlugInTable(slug2))).toBeVisible();
         });
-
-        await test.step("Remove tag", async () => {
-            page.on("dialog", async dialog => dialog.accept());
-
-            await page.locator(getXpathNameInTable(name1)).hover();
-            await page.locator(getXpathBtnDelete(name1)).click();
-            await expect(page.locator(getXpathNameInTable(name1))).toBeHidden();
-
-            await page.locator(getXpathNameInTable(name2)).hover();
-            await page.locator(getXpathBtnDelete(name2)).click();
-            await expect(page.locator(getXpathNameInTable(name2))).toBeHidden();
-        });
     });
+    let name3 = "tag Oanh Pham 03";
+    let slug3 = "Đây là tag đặc biệt @100 $200";
+    test("@POST_TAG_003: Tag add tag with special characters in slug", async ({ page }) => {
+        test.step("Submit special tag", async () => {
+            await page.locator(xpathInputName).fill(name3);
+            await page.locator(xpathInputSlug).fill(slug3);
+            await page.click(xpathBtnAddNew);
 
-
-    // test("@POST_TAG_003: Tag - slug auto remove special character", async ({ page }) => {
-    //     await test.step("Submit slug with special character", async () => {
-    //         await page.locator(xpathInputName).fill(tagName3);
-    //         await page.locator(xpathInputSlug).fill(validSlug3);
-    //         await page.click(xpathBtnAddNewTag);
-
-    //         await expect(page.locator(xpathMsgTagAdded)).toBeVisible();
-    //         await expect(page.locator(`//a[text()='${tagName3}']`)).toBeVisible();
-    //         await expect(page.locator(`//td[text()='${expectedSlug3}']`)).toBeVisible();
-    //     });
-
-    //     await test.step("Remove tag", async () => {
-    //         await page.hover(`//a[text()='${tagName3}']`);
-    //         page.on("dialog", async dialog => dialog.accept());
-    //         await page.click(`//a[@aria-label='Delete “${tagName3}”']`);
-
-    //         await expect(page.locator(`//a[text()='${tagName3}']`)).toBeHidden();
-    //     })
-    // });
-
-    //         await test.step("Remove category", async () => {
-    //             await page.click(xpathMenuCategories);
-    //             await page.hover(`//a[text()='${categoryName3}']`);
-
-    //             page.on("dialog", async dialog => dialog.accept());
-    //             await page.click(`//a[@aria-label='Delete “${categoryName3}”']`);
-
-    //             await expect(page.locator(`//a[text()='${categoryName3}']`)).toBeHidden();
-
-    //             await page.hover(`//td[text()='${expectedCategorySlug4}']`);
-    //             await page.click(`//a[@aria-label='Delete “${categoryName4}”']`);
-
-    //             await expect(page.locator(`//td[text()='${expectedCategorySlug4}']`)).toBeHidden();
-    //         });
-    //     });
-});
+            await expect(page.locator(xpathMsgTagAdded)).toBeVisible();
+            await expect(page.locator(getXpathNameInTable(name3))).toBeVisible();
+            await expect(page.locator(getXpathSlugInTable(slug3))).toBeVisible();
+        })
+    })
+})
 
 
 test.describe("POST - Category", async () => {
@@ -177,6 +184,22 @@ test.describe("POST - Category", async () => {
             await page.click(xpathMenuCategories);
         })
     });
+
+    test.afterEach(async ({ page }) => {
+        page.on("dialog", async dialog => dialog.accept());
+
+        for (let i = 0; i < arrCategories.length; i++) {
+            await test.step("Remove category", async () => {
+                await page.locator(getXpathNameInTable(arrCategories[i].name)).hover();
+                await page.locator(getXpathBtnDelete(arrCategories[i].name)).click();
+
+                // Verify delete success 
+                await page.reload();
+                await expect(page.locator(getXpathNameInTable(arrCategories[i].name))).not.toBeVisible();
+            })
+        }
+    });
+
     test("@POST_CATEGORY_001: Category - create category success", async ({ page }) => {
         for (let i = 0; i < arrCategories.length; i++) {
             await test.step("Add new category", async () => {
@@ -191,13 +214,13 @@ test.describe("POST - Category", async () => {
 
                 await page.click(xpathBtnAddNew);
 
-                // verify msg success
+                // Verify msg success
                 await expect(page.locator(xpathMsgCategoryAdded)).toBeVisible();
 
-                // verify tag name in list tag
+                // Verify tag name in list tag
                 await expect(page.locator(getXpathNameInTable(arrCategories[i].name))).toBeVisible({ timeout: 5000 });
 
-                // verify slug name in list tag
+                // Verify slug name in list tag
                 if (arrCategories[i].slug != "") {
                     await expect(page.locator(getXpathSlugInTable(arrCategories[i].expect))).toBeVisible();
                 }
