@@ -23,6 +23,12 @@ test("Ex1: Register Page", async ({ page }) => {
         await registerPage.fillUserName(username);
         await registerPage.fillEmail(email);
         await registerPage.checkGender(gender);
+        await registerPage.checkHobbies(hobbies);
+        await registerPage.selectInterests(interests);
+        await registerPage.selectCountry(country);
+        await registerPage.fillDateOfBirth(dateOfBirth);
+        await registerPage.chooseProfilePictute(profilePicturePath);
+        await registerPage.fillBio(biography);
         await registerPage.submitRegister();
 
         await expect(registerPage.thUserName).toBeVisible();
