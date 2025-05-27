@@ -6,8 +6,16 @@ export class RegisterPage extends MaterialBasePage {
     xpathEmail: string;
     xpathGenderMale: string;
     xpathGenderFemale: string;
+    xpathInterest: string; 
+    xpathCountry: string;
+    xpathDateOfBirth: string;
+    xpathProfilePicture: string; 
+    xpathBio: string;
     xpathBtnRegister: string;
     thUserName: Locator;
+    getXpathOptionHobby(hobby: "Reading" | "Traveling" | "Cooking") {
+        return `//input[@id='${hobby}']`
+    }
 
     constructor(page: Page) {
         super(page);
@@ -15,8 +23,14 @@ export class RegisterPage extends MaterialBasePage {
         this.xpathEmail = "//input[@id='email']";
         this.xpathGenderFemale = "//input[@id='female']";
         this.xpathGenderMale = "//input[@id='male']";
+        this.xpathInterest = "//select[@id='interests']";
+        this.xpathCountry = "//select[@id='country']";
+        this.xpathDateOfBirth = "//input[@id='dob']";
+        this.xpathProfilePicture = "//input[@id='profile']";
+        this.xpathBio = "//textarea[@id='bio']";
         this.xpathBtnRegister = "//button[text()='Register']";
         this.thUserName = page.locator("//th[text()='Username']");
+        
     }
 
     async fillUserName(username: string) {
@@ -34,6 +48,30 @@ export class RegisterPage extends MaterialBasePage {
         else if (gender.toLowerCase() === "female") {
             await this.page.locator(this.xpathGenderFemale).check();
         }
+    }
+
+    async checkHobbies(hobby: "Reading" | "Traveling" | "Cooking") {
+        await this.page.locator(this.getXpathOptionHobby(hobby)).check();
+    }
+
+    async selectInterests(interestValue: "Technology" | "Science" | "Art" | "Music" | "Sports") {
+        await this.page.selectOption(this.xpathInterest, interestValue);
+    }
+
+    async selectCountry(countryValue: "USA" | "Canada" | "USK" | "Australia") {
+        await this.page.selectOption(this.xpathCountry, countryValue);
+    }
+
+    async fillDateOfBirth(dateOfBirth: string) {
+        await this.page.locator(this.xpathDateOfBirth).fill(dateOfBirth);
+    }
+
+    async chooseProfilePictute(xpathFile: string) {
+        await this.page.locator(this.xpathProfilePicture).setInputFiles(xpathFile);
+    }
+
+    async fillBio(bio: string) {
+        await this.page.locator(this.xpathBio).fill(bio);
     }
 
     async submitRegister() {
