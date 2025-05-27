@@ -4,7 +4,7 @@ import { RegisterPage } from "../../page/register-page";
 let username: string = "marky";
 let email: string = "marky@example.com";
 let gender: "Male" | "Female" = "Male";
-let hobbies: "Reading" | "Traveling" | "Cooking" = "Cooking";
+let hobby: "Reading" | "Traveling" | "Cooking" = "Cooking";
 let interests: "Technology" | "Science" | "Art" | "Music" | "Sports" = "Technology";
 let country: "USA" | "Canada" | "USK" | "Australia" = "Australia";
 let dateOfBirth: string = "11/05/1994";
@@ -23,7 +23,7 @@ test("Ex1: Register Page", async ({ page }) => {
         await registerPage.fillUserName(username);
         await registerPage.fillEmail(email);
         await registerPage.checkGender(gender);
-        await registerPage.checkHobbies(hobbies);
+        await registerPage.checkHobbies(hobby);
         await registerPage.selectInterests(interests);
         await registerPage.selectCountry(country);
         await registerPage.fillDateOfBirth(dateOfBirth);
