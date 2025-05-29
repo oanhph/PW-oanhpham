@@ -35,7 +35,7 @@ test("Ex1: Register Page", async ({ page }) => {
         await registerPage.submitRegister();
     });
 
-    await test.step("Verify information in table", async () => {
+    await test.step("Verify information on the table", async () => {
         const userInfo = await registerPage.getInfoNewestInTable();
         const actualUsername = userInfo.username;
         const actualEmail = userInfo.email;
