@@ -4,10 +4,10 @@ import { RegisterPage } from "../../page/register-page";
 let username: string = "marky";
 let email: string = "marky@example.com";
 let gender: "Male" | "Female" = "Male";
-let hobby: "Reading" | "Traveling" | "Cooking" = "Cooking";
-let interests: "Technology" | "Science" | "Art" | "Music" | "Sports" = "Technology";
+let hobby: "reading" | "traveling" | "cooking" = "cooking";
+let interests: "Technology" | "Science" | "Art" | "Music" | "Sports" = "Sports";
 let country: "USA" | "Canada" | "USK" | "Australia" = "Australia";
-let dateOfBirth: string = "11/05/1994";
+let dateOfBirth: string = "1994-05-11";
 let profilePicturePath: string = "tests/lesson-6/test-data/profile-test1.jpg";
 let biography: string = "This is Marky";
 

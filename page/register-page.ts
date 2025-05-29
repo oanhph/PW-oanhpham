@@ -13,7 +13,7 @@ export class RegisterPage extends MaterialBasePage {
     xpathBio: string;
     xpathBtnRegister: string;
     thUserName: Locator;
-    getXpathOptionHobby(hobby: "Reading" | "Traveling" | "Cooking") {
+    getXpathOptionHobby(hobby: "reading" | "traveling" | "cooking") {
         return `//input[@id='${hobby}']`
     }
 
@@ -50,7 +50,7 @@ export class RegisterPage extends MaterialBasePage {
         }
     }
 
-    async checkHobbies(hobby: "Reading" | "Traveling" | "Cooking") {
+    async checkHobbies(hobby: "reading" | "traveling" | "cooking") {
         await this.page.locator(this.getXpathOptionHobby(hobby)).check();
     }
 
