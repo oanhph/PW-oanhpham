@@ -6,7 +6,7 @@ let email: string = "marky@example.com";
 let gender: "Male" | "Female" = "Male";
 let hobby: "reading" | "traveling" | "cooking" = "cooking";
 let interests: "Technology" | "Science" | "Art" | "Music" | "Sports" = "Sports";
-let country: "USA" | "Canada" | "USK" | "Australia" = "Australia";
+let country: "usa" | "canada" | "usk" | "australia" = "australia";
 let dateOfBirth: string = "1994-05-11";
 let profilePicturePath: string = "tests/lesson-6/test-data/profile-test1.jpg";
 let biography: string = "This is Marky";
@@ -20,6 +20,7 @@ test("Ex1: Register Page", async ({ page }) => {
     })
 
     await test.step("Submit valid data", async () => {
+        // fill info
         await registerPage.fillUserName(username);
         await registerPage.fillEmail(email);
         await registerPage.checkGender(gender);
@@ -29,8 +30,29 @@ test("Ex1: Register Page", async ({ page }) => {
         await registerPage.fillDateOfBirth(dateOfBirth);
         await registerPage.chooseProfilePictute(profilePicturePath);
         await registerPage.fillBio(biography);
-        await registerPage.submitRegister();
 
-        await expect(registerPage.thUserName).toBeVisible();
+        // click button Register
+        await registerPage.submitRegister();
+    });
+
+    await test.step("Verify information in table", async () => {
+        const userInfo = await registerPage.getInfoNewestInTable();
+        const actualUsername = userInfo.username;
+        const actualEmail = userInfo.email;
+        const actualInformation = userInfo.infomation;
+
+        // verify username
+        expect(actualUsername).toBe(username);
+
+        // verify email
+        expect(actualEmail).toBe(email)
+
+        // verify information
+        expect(actualInformation).toContain(gender.toLowerCase());
+        expect(actualInformation).toContain(hobby);
+        expect(actualInformation).toContain(country);
+        expect(actualInformation).toContain(dateOfBirth);
+        expect(actualInformation).toContain(biography);
+        expect(actualInformation).toContain("No");
     })
 })

@@ -6,10 +6,10 @@ export class RegisterPage extends MaterialBasePage {
     xpathEmail: string;
     xpathGenderMale: string;
     xpathGenderFemale: string;
-    xpathInterest: string; 
+    xpathInterest: string;
     xpathCountry: string;
     xpathDateOfBirth: string;
-    xpathProfilePicture: string; 
+    xpathProfilePicture: string;
     xpathBio: string;
     xpathBtnRegister: string;
     thUserName: Locator;
@@ -30,7 +30,7 @@ export class RegisterPage extends MaterialBasePage {
         this.xpathBio = "//textarea[@id='bio']";
         this.xpathBtnRegister = "//button[text()='Register']";
         this.thUserName = page.locator("//th[text()='Username']");
-        
+
     }
 
     async fillUserName(username: string) {
@@ -58,7 +58,7 @@ export class RegisterPage extends MaterialBasePage {
         await this.page.selectOption(this.xpathInterest, interestValue);
     }
 
-    async selectCountry(countryValue: "USA" | "Canada" | "USK" | "Australia") {
+    async selectCountry(countryValue: "usa" | "canada" | "usk" | "australia") {
         await this.page.selectOption(this.xpathCountry, countryValue);
     }
 
@@ -76,5 +76,17 @@ export class RegisterPage extends MaterialBasePage {
 
     async submitRegister() {
         await this.page.locator(this.xpathBtnRegister).click();
+    }
+
+    async getInfoNewestInTable() {
+        const numberOfRows = await this.page.locator("//tbody/tr").count();
+        const actualUsername = await this.page.locator(`//tbody/tr[${numberOfRows}]/td[2]`).textContent();
+        let userInfo = {
+            username: actualUsername,
+            email: await this.page.locator(`//tbody/tr[${numberOfRows}]/td[3]`).textContent(),
+            infomation: await this.page.locator(`//tbody/tr[${numberOfRows}]/td[4]`).textContent(),
+        }
+
+        return userInfo;
     }
 }
