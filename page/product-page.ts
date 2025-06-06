@@ -12,19 +12,23 @@ export class ProductPage extends MaterialBasePage {
     }
 
     // Add product by ID
-    async addProductById(productId: number, quantity: number) {
+    async addProductToCart(productId: number, quantity: number) {
         const xpath = this.getAddButtonXpathByProductId(productId);
-        for (let i = 0; i < quantity; i++) {
-            await this.page.click(xpath);
-            await this.page.waitForTimeout(200);
-        }
+        await this.page.locator(xpath).click({ clickCount: quantity })
     }
+    // async addProductById(productId: number, quantity: number) {
+    //     const xpath = this.getAddButtonXpathByProductId(productId);
+    //     for (let i = 0; i < quantity; i++) {
+    //         await this.page.click(xpath);
+    //         await this.page.waitForTimeout(200);
+    //     }
+    // }
 
-    // Add more product based on config 
-    async addProductsFromConfig(productConfig: Record<number, number>) {
-        for (const [id, quantity] of Object.entries(productConfig)) {
-            await this.addProductById(Number(id), quantity);
-        }
-    }
+    // // Add more product based on config 
+    // async addProductsFromConfig(productConfig: Record<number, number>) {
+    //     for (const [id, quantity] of Object.entries(productConfig)) {
+    //         await this.addProductById(Number(id), quantity);
+    //     }
+    // }
 
 }
