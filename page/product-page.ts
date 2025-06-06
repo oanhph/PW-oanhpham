@@ -16,6 +16,34 @@ export class ProductPage extends MaterialBasePage {
         const xpath = this.getAddButtonXpathByProductId(productId);
         await this.page.locator(xpath).click({ clickCount: quantity })
     }
+
+    // Get product info
+    async getInfoNewestInTable() {
+        const numberOfRows = await this.page.locator("//tbody/tr").count();
+        let actualProductName = await this.page.locator(`//tbody/tr[${numberOfRows}]/td[1]`);
+        let productInfo = {
+            productName: actualProductName,
+            quantity: await this.page.locator(`//tbody/tr[${numberOfRows}]/td[3]`),
+        }
+        return productInfo;
+    }
+
+
+
+
+    // async getInfoNewestInTable() {
+    //     const numberOfRows = await this.page.locator("//tbody/tr").count();
+    //     const actualUsername = await this.page.locator(`//tbody/tr[${numberOfRows}]/td[2]`).textContent();
+    //     let userInfo = {
+    //         username: actualUsername,
+    //         email: await this.page.locator(`//tbody/tr[${numberOfRows}]/td[3]`).textContent(),
+    //         infomation: await this.page.locator(`//tbody/tr[${numberOfRows}]/td[4]`).textContent(),
+    //     }
+
+    //     return userInfo;
+    // }
+
+
     // async addProductById(productId: number, quantity: number) {
     //     const xpath = this.getAddButtonXpathByProductId(productId);
     //     for (let i = 0; i < quantity; i++) {

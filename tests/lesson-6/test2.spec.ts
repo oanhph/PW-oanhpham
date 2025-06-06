@@ -34,4 +34,14 @@ test("Ex2: Product Page", async ({ page }) => {
             await productPage.addProductToCart(arrProducts[i].id, arrProducts[i].quantity);
         }
     })
+
+    await test.step("Verify quantity", async() => {
+        const productQty = await productPage.getInfoNewestInTable();
+        const actualQty = productQty.quantity;
+        
+        for (let i = 0; i < arrProducts.length; i++) {
+            expect(actualQty).toBe
+        }
+        expect(actualQty).toBe
+    })
 })
