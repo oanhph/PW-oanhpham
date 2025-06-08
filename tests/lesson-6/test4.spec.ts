@@ -24,5 +24,9 @@ test("Ex4: Personal note", async ({ page }) => {
             await personalNote.clickAddNote()
         }
     })
+
+    await test.step("Search note by title", async() => {
+        await personalNote.searchNote("Giải thưởng");
+    })
     //     let notes: { title: string, content: string }[] = [];
 })

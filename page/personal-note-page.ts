@@ -22,4 +22,8 @@ export class PersonalNote extends MaterialBasePage {
     async clickAddNote() {
         await this.page.locator(this.xpathBtnAddNote).click();
     }
+
+    async searchNote(keyword: string) {
+        await this.page.locator(this.xpathSearchNotes).fill(keyword);
+    }
 }
