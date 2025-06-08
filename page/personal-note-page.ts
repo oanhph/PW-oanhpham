@@ -26,4 +26,15 @@ export class PersonalNote extends MaterialBasePage {
     async searchNote(keyword: string) {
         await this.page.locator(this.xpathSearchNotes).fill(keyword);
     }
+
+    async getAllTitleInList() {
+        let listTitles: string[] = [];
+        const countTitles = await this.page.locator("//ul/li/descendant::strong").count();
+        for (let i = 1; i <= countTitles; i++) {
+            let title = await this.page.locator(`(//ul/li/descendant::strong)[${i}]`).textContent();
+            listTitles.push(title || "");
+        }
+
+        return listTitles;
+    }
 }
