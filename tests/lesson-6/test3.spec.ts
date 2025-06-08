@@ -1,4 +1,4 @@
-import {test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { TodoPage } from "../../page/todo-page";
 
 test("Ex3: Todo page", async ({ page }) => {
@@ -22,13 +22,13 @@ test("Ex3: Todo page", async ({ page }) => {
         }
     })
 
-    await test.step('Kiểm tra todo có số thứ tự 90 nằm trong viewport', async () => {
+    await test.step("Verify Todo 90 in viewport", async () => {
         const xpathTodo90 = todoPage.getLocatorTask("Todo 90");
         await expect(xpathTodo90).toBeInViewport({ timeout: 5000 });
     })
 
-    // await test.step("Verify Todo 21 in DOM", async () => {
-    //     let result = await todoPage.verifyElementInDOM(21);
-    //     console.log(result);
-    // })
+    await test.step("Verify Todo 21 is not in DOM", async () => {
+        const xpathTodo21 = todoPage.getLocatorTask("Todo 21");
+        await expect(xpathTodo21).not.toBeAttached();
+    })
 })
