@@ -35,13 +35,10 @@ test("Ex2: Product Page", async ({ page }) => {
         }
     })
 
-    await test.step("Verify quantity", async() => {
-        const productQty = await productPage.getInfoNewestInTable();
-        const actualQty = productQty.quantity;
-        
+    await test.step("Verify quantity", async () => {
+        const productsInTable = await productPage.getAllInfoNewestInTable();
         for (let i = 0; i < arrProducts.length; i++) {
-            expect(actualQty).toBe
+            expect(productsInTable[i].quantity).toBe(arrProducts[i].quantity)
         }
-        expect(actualQty).toBe
     })
 })

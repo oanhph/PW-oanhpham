@@ -18,12 +18,17 @@ export class ProductPage extends MaterialBasePage {
     }
 
     // Get product info
-    async getInfoNewestInTable() {
+    async getAllInfoNewestInTable() {
         const numberOfRows = await this.page.locator("//tbody/tr").count();
-        let actualProductName = await this.page.locator(`//tbody/tr[${numberOfRows}]/td[1]`);
-        let productInfo = {
-            productName: actualProductName,
-            quantity: await this.page.locator(`//tbody/tr[${numberOfRows}]/td[3]`),
+        let productInfo: { productName: String, quantity: Number }[] = [];
+        for (let i = 1; i <= numberOfRows; i++) {
+            let productName = await this.page.locator(`//tbody/tr[${i}]/td[1]`).textContent();
+            let quantity = await this.page.locator(`//tbody/tr[${i}]/td[3]`).textContent();
+
+            productInfo.push({
+                productName: productName?.trim() || "",
+                quantity: Number(quantity)
+            });
         }
         return productInfo;
     }
