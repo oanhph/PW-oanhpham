@@ -9,6 +9,10 @@ export class MaterialBasePage {
 
     constructor(page: Page) {
         this.page = page;
+        this.xpathRegisterPage = "//a[@href='01-xpath-register-page.html']";
+        this.xpathProductPage = "//a[@href='02-xpath-product-page.html']";
+        this.cssTodoPage = "a[href='03-xpath-todo-list.html']";
+        this.personalNote = page.locator("//a[@href='04-xpath-personal-notes.html']");
     }
 
     async openMaterialPage(url: string) {
@@ -26,34 +30,8 @@ export class MaterialBasePage {
             case "todo":
                 await this.page.locator(this.cssTodoPage).click();
                 break;
-        }
-    }
-}
-
-export class RegisterPage extends MaterialBasePage {
-    xpathUserName: string;
-    xpathEmail: string;
-    xpathGenderMale: string;
-    xpathGenderFemale: string;
-
-    constructor(page: Page) {
-        super(page);
-    }
-
-    async fillUserName(username: string) {
-        await this.page.locator(this.xpathUserName).fill(username);
-    }
-
-    async fillEmail(email: string) {
-        await this.page.locator(this.xpathEmail).fill(email);
-    }
-
-    async checkGender(gender: string) {
-        if (gender.toLocaleLowerCase() === "male") {
-            await this.page.locator(this.xpathGenderMale).check();
-        }
-        else if (gender.toLocaleLowerCase() === "female") {
-            await this.page.locator(this.xpathGenderFemale).check();
+            case "personal note":
+                await this.personalNote.click();
         }
     }
 }
