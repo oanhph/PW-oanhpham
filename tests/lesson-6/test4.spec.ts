@@ -1,4 +1,4 @@
-import test from "@playwright/test";
+import test, { expect } from "@playwright/test";
 import { PersonalNote } from "../../page/personal-note-page";
 
 test("Ex4: Personal note", async ({ page }) => {
@@ -25,8 +25,14 @@ test("Ex4: Personal note", async ({ page }) => {
         }
     })
 
-    await test.step("Search note by title", async() => {
+    await test.step("Search note by title", async () => {
         await personalNote.searchNote("Giải thưởng");
     })
-    //     let notes: { title: string, content: string }[] = [];
+
+    await test.step("Verify all note that has title include the searched keyword", async () => {
+        const listTitles = await personalNote.getAllTitleInList();
+        for (let i = 0; i < listTitles.length; i++) {
+            expect(listTitles[i]).toContain("Giải thưởng");
+        }
+    })
 })
