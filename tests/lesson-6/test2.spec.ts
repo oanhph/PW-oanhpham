@@ -39,11 +39,16 @@ test("Ex2: Product Page", async ({ page }) => {
         for (let i = 0; i < arrProducts.length; i++) {
             const actualQtyProduct = (await productPage.getInfoProductInTable(arrProducts[i].name)).quantity;
             const expectQtyProduct = arrProducts[i].quantity;
-            expect(actualQtyProduct).toBe(expectQtyProduct);
+            expect(actualQtyProduct).toEqual(expectQtyProduct);
         }
     })
 
-    await test.step("Verify total price", async() => {
-        const actualTotalPrice = await productPage.getAllInfoNewestInTable(producIn)
+    await test.step("Verify total price", async () => {
+        for (let i = 0; i < arrProducts.length; i++) {
+            const actualTotalProduct = (await productPage.getInfoProductInTable(arrProducts[i].name)).total;
+            const total = arrProducts[i].quantity * arrProducts[i].price;
+            const expectTotalProduct = '$' + total.toFixed(2);
+            expect(actualTotalProduct).toEqual(expectTotalProduct);
+        }
     })
 })

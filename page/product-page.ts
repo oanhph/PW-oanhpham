@@ -18,25 +18,17 @@ export class ProductPage extends MaterialBasePage {
     }
 
     // Get product info
-    async getAllInfoNewestInTable() {
-        const numberOfRows = await this.page.locator("//tbody/tr").count();
-        let productInfo: { productName: String, quantity: Number , total: Number}[] = [];
-        for (let i = 1; i <= numberOfRows; i++) {
-            let productName = await this.page.locator(`//tbody/tr[${i}]/td[1]`).textContent();
-            let quantity = await this.page.locator(`//tbody/tr[${i}]/td[3]`).textContent();
-            let total = await this.page.locator(`//tbody/tr[${i}]/td[4]`).textContent();
-
-            productInfo.push({
-                productName: productName?.trim() || "",
-                quantity: Number(quantity),
-                total: Number(total)
-            });
-        }
-        return productInfo;
+    async getInfoProductInTable(productName: string) {
+        const price = await this.page.locator(`//td[contains(text(),'${productName}')]/following::td[1]`).textContent();
+        const quantity = await this.page.locator(`//td[contains(text(),'${productName}')]/following::td[2]`).textContent();
+        const total = await this.page.locator(`//td[contains(text(),'${productName}')]/following::td[3]`).textContent();
+        const infoProduct = {
+            price: price?.trim() || "",
+            quantity: Number(quantity ?? "0"),
+            total: total?.trim() || ""
+        };
+        return infoProduct;
     }
-
-
-
 
     // async getInfoNewestInTable() {
     //     const numberOfRows = await this.page.locator("//tbody/tr").count();
@@ -49,7 +41,6 @@ export class ProductPage extends MaterialBasePage {
 
     //     return userInfo;
     // }
-
 
     // async addProductById(productId: number, quantity: number) {
     //     const xpath = this.getAddButtonXpathByProductId(productId);
