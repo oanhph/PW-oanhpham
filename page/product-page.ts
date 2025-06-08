@@ -20,14 +20,16 @@ export class ProductPage extends MaterialBasePage {
     // Get product info
     async getAllInfoNewestInTable() {
         const numberOfRows = await this.page.locator("//tbody/tr").count();
-        let productInfo: { productName: String, quantity: Number }[] = [];
+        let productInfo: { productName: String, quantity: Number , total: Number}[] = [];
         for (let i = 1; i <= numberOfRows; i++) {
             let productName = await this.page.locator(`//tbody/tr[${i}]/td[1]`).textContent();
             let quantity = await this.page.locator(`//tbody/tr[${i}]/td[3]`).textContent();
+            let total = await this.page.locator(`//tbody/tr[${i}]/td[4]`).textContent();
 
             productInfo.push({
                 productName: productName?.trim() || "",
-                quantity: Number(quantity)
+                quantity: Number(quantity),
+                total: Number(total)
             });
         }
         return productInfo;
