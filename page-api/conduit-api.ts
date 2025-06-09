@@ -8,6 +8,22 @@ export class ConduitAPI {
         this.request = request;
     }
 
+    async registerAPI(email: string, password: string, username: string) {
+        const url = `${this.baseUrl}/api/users`;
+        const response = await this.request.post(url,
+            {
+                data: {
+                    user: {
+                        email: email,
+                        password: password,
+                        username: username
+                    }
+                }
+            }
+        )
+        return response
+    }
+
     async login(email: string, password: string) {
         const url = `${this.baseUrl}/api/users/login`;
         const response = await this.request.post(url,
