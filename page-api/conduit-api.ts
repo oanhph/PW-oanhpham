@@ -2,11 +2,10 @@ import { APIRequestContext } from "@playwright/test";
 
 export class ConduitAPI {
     request: APIRequestContext;
-    baseUrl: string;
+    baseUrl = "https://conduit-api.bondaracademy.com";
 
-    constructor(request: APIRequestContext, baseUrl: string) {
+    constructor(request: APIRequestContext) {
         this.request = request;
-        this.baseUrl = baseUrl;
     }
 
     async login(email: string, password: string) {
