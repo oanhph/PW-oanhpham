@@ -6,7 +6,7 @@ test("Sign up", async ({ request }) => {
     const random = new Date().getMilliseconds();
     const usernameRes = `oanh${random}`;
     const emailRes = `oanh${random}@gmail.com`;
-    const password = "123456";
+    const password = "12345678";
 
     // const url = `${conduitPOM.baseUrl}/api/users`;
     const response = await conduitPOM.registerAPI(
