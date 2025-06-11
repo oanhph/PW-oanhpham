@@ -8,7 +8,6 @@ test("Sign up", async ({ request }) => {
     const emailRes = `oanh${random}@gmail.com`;
     const password = "12345678";
 
-    // const url = `${conduitPOM.baseUrl}/api/users`;
     const response = await conduitPOM.registerAPI(
         emailRes,
         password,
