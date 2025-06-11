@@ -3,13 +3,17 @@ import { ConduitAPI } from "../../page-api/conduit-api";
 
 test("Article", async ({ request }) => {
     let token: string;
+    const random = new Date().getMilliseconds();
     let articleSlug: string;
     let arrayComment: { id: number, body: string }[] = [];
 
-    let conduitPOM = new ConduitAPI(request, "https://conduit-api.bondaracademy.com");
+    let conduitPOM = new ConduitAPI(request);
 
     await test.step("Login", async () => {
-        const loginRes = await conduitPOM.login("oanhpham+2@gmail.com", "123456");
+        const email = "oanhpham+2@gmail.com";
+        const password = "123456";
+
+        const loginRes = await conduitPOM.login(email, password);
 
         const statusCode = loginRes.status();
         expect(statusCode).toEqual(200);
@@ -20,24 +24,25 @@ test("Article", async ({ request }) => {
     });
 
     await test.step("Add new article", async () => {
-        const articleInput = {
-            title: "API in Playwright",
-            description: "How to use Playwright to create article",
-            body: "How to use Playwright to create article",
-            tagList: [
-                "Playwright Viet Nam",
-                "pw",
-                "pw-k6"
-            ]
-        };
-        const articleRes = await conduitPOM.addArticle(token, articleInput);
+        const title = `API in Playwright ${random}`;
+        const description = "How to use Playwright to create article";
+        const body = "How to use Playwright to create article";
+        const tagList = ["Playwright Viet Nam, pw, pw-k6"];
+
+        const articleRes = await conduitPOM.addArticle(
+            token,
+            title,
+            description,
+            body,
+            tagList
+        );
 
         const statusCode = articleRes.status();
         expect(statusCode).toEqual(201);
 
         const articleBody = await articleRes.json();
         articleSlug = articleBody.article.slug;
-        expect(articleSlug.toLowerCase()).toContain("api-in-playwright");
+        expect(articleSlug.toLowerCase()).toContain(`api-in-playwright-${random}`);
     })
 
     await test.step("Add 5 comments", async () => {
