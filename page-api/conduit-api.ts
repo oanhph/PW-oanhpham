@@ -2,11 +2,26 @@ import { APIRequestContext } from "@playwright/test";
 
 export class ConduitAPI {
     request: APIRequestContext;
-    baseUrl: string;
+    baseUrl = "https://conduit-api.bondaracademy.com";
 
-    constructor(request: APIRequestContext, baseUrl: string) {
+    constructor(request: APIRequestContext) {
         this.request = request;
-        this.baseUrl = baseUrl;
+    }
+
+    async registerAPI(email: string, password: string, username: string) {
+        const url = `${this.baseUrl}/api/users`;
+        const response = await this.request.post(url,
+            {
+                data: {
+                    user: {
+                        email: email,
+                        password: password,
+                        username: username
+                    }
+                }
+            }
+        )
+        return response
     }
 
     async login(email: string, password: string) {
@@ -24,7 +39,13 @@ export class ConduitAPI {
         return response
     }
 
-    async addArticle(token: string, articleData: any) {
+    async addArticle(
+        token: string,
+        title: string,
+        description: string,
+        body: string,
+        tagList: string[]
+    ) {
         const url = `${this.baseUrl}/api/articles/`;
         const response = await this.request.post(url,
             {
@@ -32,7 +53,13 @@ export class ConduitAPI {
                     authorization: `Token ${token}`
                 },
                 data: {
-                    article: articleData
+                    article:
+                    {
+                        title: title,
+                        description: description,
+                        body: body,
+                        tagList: tagList
+                    }
                 }
             }
         )
