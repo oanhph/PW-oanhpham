@@ -1,6 +1,7 @@
 import { Page } from "@playwright/test";
 import { RegisterPage } from "./register-page-pom-manager";
 import { ProductPage } from "./product-page-pom-manager";
+import { TodoPage } from "./todo-page-pom-manager";
 
 export class POMManager {
     page: Page;
@@ -16,4 +17,9 @@ export class POMManager {
     getProductPage() {
         return new ProductPage(this.page);
     }
+
+    getTodoPage() {
+        return new TodoPage(this.page);
+    }
+
 }
