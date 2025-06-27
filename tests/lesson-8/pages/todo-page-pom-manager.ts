@@ -11,7 +11,7 @@ export class TodoPage {
         this.btnAddTask = page.locator("//button[@id='add-task']");
     }
 
-    async goToRegisterPage() {
+    async goToTodoPage() {
         await this.page.goto("https://material.playwrightvn.com/");
         await this.page.click(`//a[contains(text(),'Todo page')]`);
     }
