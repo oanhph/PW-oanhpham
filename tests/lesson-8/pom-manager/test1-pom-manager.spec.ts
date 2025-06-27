@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { POMManager } from "./pages/pom-manager";
-import { RegisterPage } from "./pages/register-page-pom-manager";
+import { RegisterPage } from "../pages/register-page-pom-manager";
 
 let username: string = "marky";
 let email: string = "marky@example.com";

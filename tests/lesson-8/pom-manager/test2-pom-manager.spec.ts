@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { POMManager } from "./pages/pom-manager";
-import { ProductPage } from "./pages/product-page-pom-manager";
+import { ProductPage } from "../pages/product-page-pom-manager";
 
 test("Ex2: Product Page", async ({ page }) => {
     const pomManager = new POMManager(page);

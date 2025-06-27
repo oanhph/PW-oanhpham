@@ -1,5 +1,5 @@
 import test, { expect } from "@playwright/test";
-import { POMManager } from "./pages/pom-manager";
+import { POMManager } from "../pages/pom-manager";
 import { PersonalNotePage } from "./pages/personal-note-page-pom-manager";
 
 test("Ex4: Personal note", async ({ page }) => {

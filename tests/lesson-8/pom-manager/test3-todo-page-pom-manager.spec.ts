@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { TodoPage } from "./pages/todo-page-pom-manager";
+import { TodoPage } from "../pages/todo-page-pom-manager";
 import { POMManager } from "./pages/pom-manager";
 
 
