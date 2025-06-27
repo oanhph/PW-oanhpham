@@ -9,4 +9,9 @@ export class PersonalNotePage {
         this.page = page;
     }
 
+    async goToPersonalNotePage() {
+        await this.page.goto("https://material.playwrightvn.com/");
+        await this.page.click(`//a[contains(text(),'Personal notes')]`);
+    }
+
 }
