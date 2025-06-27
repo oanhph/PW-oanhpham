@@ -32,6 +32,11 @@ export class RegisterPage {
         this.thUserName = page.locator("//th[text()='Username']");
     }
 
+    async goToRegisterPage() {
+        await this.page.goto("https://material.playwrightvn.com/");
+        await this.page.click(`//a[contains(text(),'Register Page')]`);
+    }
+
     async fillUserName(username: string) {
         await this.page.locator(this.xpathUserName).fill(username);
     }
