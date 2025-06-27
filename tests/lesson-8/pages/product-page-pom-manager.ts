@@ -8,6 +8,11 @@ export class ProductPage {
         this.page = page;
     }
 
+    async goToProductPage() {
+        await this.page.goto("https://material.playwrightvn.com/");
+        await this.page.click(`//a[contains(text(),'Product page')]`);
+    }
+
     // Generate xpath based on product ID
     getAddButtonXpathByProductId(productId: number): string {
         return `//button[@class='add-to-cart' and @data-product-id='${productId}']`;
