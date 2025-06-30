@@ -1,5 +1,4 @@
 import { Page } from "@playwright/test";
-import { RegisterPage } from "./register-page-pom-manager";
 
 export class ProductPage {
     page: Page;

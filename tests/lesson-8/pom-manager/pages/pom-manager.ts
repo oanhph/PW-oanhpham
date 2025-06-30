@@ -1,8 +1,8 @@
 import { Page } from "@playwright/test";
-import { RegisterPage } from "../../pages/register-page-pom-manager";
-import { ProductPage } from "../../pages/product-page-pom-manager";
-import { TodoPage } from "../../pages/todo-page-pom-manager";
 import { PersonalNotePage } from "./personal-note-page-pom-manager";
+import { TodoPage } from "./todo-page-pom-manager";
+import { ProductPage } from "./product-page-pom-manager";
+import { RegisterPage } from "./register-page-pom-manager";
 
 export class POMManager {
     page: Page;
